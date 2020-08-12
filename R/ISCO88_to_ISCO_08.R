@@ -1,13 +1,13 @@
 #' Cross ISCO 08 a ISCO 88
 #'
-#' @param base Dataframe from survey which includes ISCO 08 codes
-#' @param isco Vector with isco 08 codes
+#' @param base Dataframe from any survey including a variable with ISCO 08 codes
+#' @param isco character vector containing ISCO 08 codes
 #'
-#' @return Dataframe adding a new variable with crosswalk to ISCO88
+#' @return The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes
 #' @export
 #' @examples
 #'
-#' base_crossed <- isco08_to_isco88(toy_base_lfs,isco = ISCO3D,summary = T)
+#' base_crossed <- isco08_to_isco88(toy_base_lfs,isco = "ISCO3D",summary = T)
 #'
 isco08_to_isco88<- function(base,isco,summary = F){
 
@@ -42,7 +42,7 @@ return(base_lfs_join_sample)
   #Cuento cuantos casos de ISCO3D fueron a parar a cada ISCO.88 a 4 dígitos
 if (summary==TRUE) {
 
-summary_cross <- base_lfs_join_sample %>%
+summary_cross <<- base_lfs_join_sample %>%
   dplyr::group_by(ISCO3D,ISCO.88) %>%
   dplyr::summarise(Cases = dplyr::n())
 
