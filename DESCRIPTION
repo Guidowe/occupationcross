@@ -1,14 +1,19 @@
 Package: occupationcross
-Title: What the Package Does (One Line, Title Case)
+Title: Package for making crosswalks among different Occupational codes
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Guido",
+           family = "Weksler",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "guidowe45@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+Description: This package will allow you to take Household Surveys from Europe and United States, to easily apply crosswalks between multiple Occupational Classifications sucha as ISCO 08, ISCO 88, SOC, Census.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
+Suggests: 
+    testthat (>= 2.1.0)
+Imports: 
+    magrittr,
+    dplyr

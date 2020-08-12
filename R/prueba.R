@@ -1,4 +1,12 @@
-###Substraigo a 3 digitos el ISCO 08 en el crosswalk (asi aparece en LFS)
+#' Suma de vector, mas 2
+#'
+#' @param vector Un vector numerico
+#'
+#' @return La suma de todos sus numeros mas 2
+#' @export
+#'
+#' @examples
+#' suma(1:18)
 suma <- function(vector){
   sum(vector)+2
   }
