@@ -16,6 +16,9 @@ Suggests:
     testthat (>= 2.1.0)
 Imports: 
     magrittr,
-    dplyr
+    dplyr,
+    stringr,
+    purrr,
+    tidyr
 URL: https://github.com/Guidowe/occupationcross
 BugReports: https://github.com/Guidowe/occupationcross/issues

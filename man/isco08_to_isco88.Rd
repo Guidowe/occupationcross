@@ -4,16 +4,21 @@
 \alias{isco08_to_isco88}
 \title{Cross ISCO 08 a ISCO 88}
 \usage{
-isco08_to_isco88(base, isco, summary = F)
+isco08_to_isco88(base, isco, summary = FALSE)
 }
 \arguments{
-\item{base}{Dataframe from survey which includes ISCO 08 codes}
+\item{base}{Dataframe from any survey including a variable with ISCO 08 codes}
 
-\item{isco}{Vector with isco 08 codes}
+\item{isco}{character vector containing ISCO 08 codes}
 }
 \value{
-Dataframe adding a new variable with crosswalk to ISCO88
+The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes
 }
 \description{
 Cross ISCO 08 a ISCO 88
+}
+\examples{
+
+base_crossed <- isco08_to_isco88(toy_base_lfs,isco = "ISCO3D",summary = TRUE)
+
 }

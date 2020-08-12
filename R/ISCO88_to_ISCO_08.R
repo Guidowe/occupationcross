@@ -7,9 +7,9 @@
 #' @export
 #' @examples
 #'
-#' base_crossed <- isco08_to_isco88(toy_base_lfs,isco = "ISCO3D",summary = T)
+#' base_crossed <- isco08_to_isco88(toy_base_lfs,isco = "ISCO3D",summary = TRUE)
 #'
-isco08_to_isco88<- function(base,isco,summary = F){
+isco08_to_isco88<- function(base,isco,summary = FALSE){
 
 sample.isco <- function(df) {
     sample(df$`ISCO-88 code`,size = 1)
@@ -37,16 +37,15 @@ base_lfs_join_sample <- base_lfs_join %>%
   dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
   dplyr::mutate(ISCO.88 = as.numeric(ISCO.88))
 
-
 return(base_lfs_join_sample)
-  #Cuento cuantos casos de ISCO3D fueron a parar a cada ISCO.88 a 4 dígitos
+
 if (summary==TRUE) {
 
 summary_cross <<- base_lfs_join_sample %>%
   dplyr::group_by(ISCO3D,ISCO.88) %>%
   dplyr::summarise(Cases = dplyr::n())
 
-  }
+}
 
 
 }
