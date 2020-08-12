@@ -17,3 +17,5 @@ Suggests:
 Imports: 
     magrittr,
     dplyr
+URL: https://github.com/Guidowe/occupationcross
+BugReports: https://github.com/Guidowe/occupationcross/issues
