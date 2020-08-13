@@ -9,7 +9,6 @@
 #'
 #' base_crossed <- isco08_to_isco88(toy_base_lfs,isco = "ISCO3D",summary = TRUE)
 #'
-toy_base_lfs
 isco08_to_isco88<- function(base,isco,summary = FALSE){
 
 sample.isco <- function(df) {
