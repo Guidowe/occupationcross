@@ -2,6 +2,7 @@
 #'
 #' @param base Dataframe from any survey including a variable with ISCO 08 codes
 #' @param isco character vector containing ISCO 08 codes
+#' @param summary If TRUE provides other dataframe counting how many cases where asigned for each ISCO08 code to each ISCO88 code.
 #'
 #' @return The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes
 #' @export
