@@ -16,7 +16,7 @@ sample.isco <- function(df) {
     sample(df$`ISCO-88 code`,size = 1)
   }
 
-cross_isco_3dig <- isco08_cross_isco88 %>%
+cross_isco_3dig <- crosstable_isco08_isco88 %>%
   dplyr::mutate(
     ISCO3D = as.integer(stringr::str_sub(string = `ISCO 08 Code`,1,3))) %>%
   dplyr::add_row(ISCO3D = 999)

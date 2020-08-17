@@ -16,7 +16,7 @@ census2010_to_soc2010<- function(base,census,code_titles = FALSE){
   base_census_join <- base %>%
     dplyr::rename(Census = census) %>%
     dplyr::mutate(Census = as.character(Census)) %>%
-    dplyr::left_join(census2010_cross_soc2010,by = "Census")
+    dplyr::left_join(crosstable_census2010_soc2010,by = "Census")
 
   if(code_titles == FALSE){
 base_census_join <- base_census_join %>%
