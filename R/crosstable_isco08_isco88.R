@@ -15,4 +15,4 @@
 #'   ...
 #' }
 #' @source \url{https://www.ilo.org/public/english/bureau/stat/isco/isco08/}
-"isco08_cross_isco88"
+"crosstable_isco08_isco88"
