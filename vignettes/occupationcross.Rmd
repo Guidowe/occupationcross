@@ -1,0 +1,84 @@
+---
+title: "Ejemplo de uso de occupationcross"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{occupationcross}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(occupationcross)
+```
+
+`occupationcross` package provides some functions to apply crosswalks between different occupational clasiffications around the world.
+
+## Installation
+
+
+To install development version:
+
+```{r, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
+# install.packages('devtools') si no tiene instalado devtools
+
+devtools::install_github("Guidowe/occupationcross")
+```
+
+
+## WorkFlow Example: 
+Lets read a household survey database that has occupations codified in Census 2010 codes. In our example we will use IPUMS database from   Current Population Survey (CPS-United States).          
+
+We will take our `census2010_to_isco08()`function to aplly crosswalk to ISCO 08 codes.  
+
+### Load libraries: 
+
+```{r message=FALSE, warning=FALSE}
+library(occupationcross)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+### Load database:
+Besides from USA CPS database we will read a Italy´s database from Labour Force Survey (LFS), which is allready codified in ISCO-08 codes
+
+```{r}
+usa_cps_base <- readRDS("../data-raw/bases/Base_USA2018.RDS")
+italy_lfs_base <- readRDS("../data-raw/bases/IT2014.RDS")
+```
+
+### Apply crosswalk to ISCO 08 codes: `census2010_to_isco08()`
+Our function requieres three basic arguments :
+
+- `base`: Dataframe containing a variable with Census 2010 codes
+- `census`: character indicating the variable name containing Census 2010 codes. In our case, in IPUMS-CPS database it is named "OCC"
+- `summary`: logical indicating if you want a summary table counting case from each census2010 code to eacho isco08 code.
+- `code_titles`: logical indicating if you want occupational titles besides codes.
+```{r message=FALSE, warning=FALSE}
+usa_cps_base_crossed <- census2010_to_isco08(base = usa_cps_base,census = "OCC",summary = FALSE,code_titles = T)
+```
+
+```{r}
+ncol(usa_cps_base)
+ncol(usa_cps_base_crossed)
+```
+
+The resulting dataframe *_usa_cps_base_crossed* has now three more variables provinding ISCO 08 codes, ISCO 08 titles and SOC 2010 codes (which was used to make an intermediate crosswalk).
+
+Let´s see which are the most frecuent occupation in USA-CPS
+```{r message=FALSE, warning=FALSE}
+ usa_cps_base_crossed %>% 
+  filter(!is.na(ISCO.08)) %>% 
+  group_by(ISCO.title) %>% 
+  summarise(Total = sum(ASECWT)) %>% 
+  ungroup() %>% 
+  top_n(.,n = 10,Total) %>% 
+  arrange(desc(Total))
+```
