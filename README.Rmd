@@ -17,12 +17,11 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of occupationcross is to ...
+The goal of occupationcross is to facilitate the application of crosswalks between occupational classifiers from different parts of the world.
 
 ## Installation
 
-
-And the development version of occupationcross from [GitHub](https://github.com/) with:
+Install the development version of occupationcross from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -30,10 +29,22 @@ devtools::install_github("Guidowe/occupationcross")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example of how this package works :
 
-```{r example}
+Let´s load first *occupationcross*, and also *tidyverse*
+```{r,warning=FALSE,message=FALSE}
 library(occupationcross)
+library(tidyverse)
+```
 
+Below is a sample from a database from USA - Current Population Survey, which contains a variable corresponding to the Census 2010 occupational code, named as *"OCC"*
+```{r,warning=FALSE,message=FALSE}
+toy_base_ipums_cps_2018
+```
+Applying the `census2010_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes.
+```{r,warning=FALSE,message=FALSE}
+census2010_to_isco08(base = toy_base_ipums_cps_2018,
+                     census = "OCC",
+                     code_titles=TRUE)
 ```
 
