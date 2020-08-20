@@ -2,7 +2,7 @@
 title: "Ejemplo de uso de occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{occupationcross}
+  %\VignetteIndexEntry{Ejemplo de uso}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -43,7 +43,6 @@ We will take our `census2010_to_isco08()`function to aplly crosswalk to ISCO 08 
 library(occupationcross)
 library(dplyr)
 library(tidyr)
-library(ggplot2)
 ```
 
 ### Load database:
