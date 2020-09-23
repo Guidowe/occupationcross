@@ -19,20 +19,30 @@ sample.isco <- function(df) {
 cross_isco_3dig <- crosstable_isco08_isco88 %>%
   dplyr::mutate(
     ISCO3D = as.integer(stringr::str_sub(string = `ISCO 08 Code`,1,3))) %>%
-  dplyr::add_row(ISCO3D = 999)
+  dplyr::add_row(ISCO3D = 999) %>%
+  dplyr::add_row(ISCO3D = NA)
 
 nested.data.isco.cross <- cross_isco_3dig %>%
   dplyr::select(ISCO3D,`ISCO-88 code`) %>%
   dplyr::group_by(ISCO3D) %>%
+  unique() %>%
   tidyr::nest()
 
-#ACA
 base_lfs_join  <- base %>%
   dplyr::rename(ISCO3D = isco) %>%
   dplyr::left_join(nested.data.isco.cross,by = "ISCO3D")
 
-set.seed(999971)
+Codigos_error <-  base_lfs_join %>%
+  dplyr::select(ISCO3D) %>%
+  dplyr::filter(!(ISCO3D %in% unique(cross_isco_3dig$ISCO3D))) %>%
+  unique()
 
+assertthat::assert_that(
+  all(unique(base_lfs_join$ISCO3D) %in% unique(cross_isco_3dig$ISCO3D)),
+  msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
+               list(Codigos_error$ISCO3D)))
+
+set.seed(999971)
 base_lfs_join_sample <- base_lfs_join %>%
   dplyr::mutate(ISCO.88 = purrr::map(data, sample.isco))  %>%
   dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
