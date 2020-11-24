@@ -37,10 +37,10 @@ Codigos_error <-  base_lfs_join %>%
   dplyr::filter(!(ISCO3D %in% unique(cross_isco_3dig$ISCO3D))) %>%
   unique()
 
-assertthat::assert_that(
-  all(unique(base_lfs_join$ISCO3D) %in% unique(cross_isco_3dig$ISCO3D)),
-  msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
-               list(Codigos_error$ISCO3D)))
+ assertthat::assert_that(
+   all(unique(base_lfs_join$ISCO3D) %in% unique(cross_isco_3dig$ISCO3D)),
+   msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
+                list(Codigos_error$ISCO3D)))
 
 set.seed(999971)
 base_lfs_join_sample <- base_lfs_join %>%

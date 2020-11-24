@@ -1,4 +1,4 @@
-context("test-ISCO08_to_ISCO_88")
+context("test-isco08_to_isco88")
 
 test_that("check ncols", {
 

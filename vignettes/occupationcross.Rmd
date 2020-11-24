@@ -3,7 +3,7 @@ title: "Ejemplo de uso de occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Ejemplo de uso}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
 
