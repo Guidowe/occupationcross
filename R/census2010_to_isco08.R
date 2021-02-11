@@ -13,6 +13,27 @@
 #'
 census2010_to_isco08<- function(base,census,summary = FALSE,code_titles = FALSE){
 
+base <-  base %>%
+    dplyr::mutate(Census = as.character({{census}}))
+
+
+Codigos_error <- base %>%
+    dplyr::select(Census) %>%
+    dplyr::filter(!(Census %in% unique(crosstable_census2010_soc2010$Census))) %>%
+    unique()
+
+if(length(Codigos_error$Census)>=1){
+    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+                   list(Codigos_error$Census)))
+
+  base  <- base %>%
+    dplyr::mutate(
+      Census = dplyr::case_when(
+        Census %in% Codigos_error$Census ~ "0",
+        TRUE~ Census))
+}
+
+
   sample.isco <- function(df) {
     sample(df$ISCO,size = 1)
   }
@@ -25,7 +46,6 @@ census2010_to_isco08<- function(base,census,summary = FALSE,code_titles = FALSE)
  # save(toy_base_ipums_cps_2018,file = "data/toy_base_ipums_cps_2018.rda")
 
 base_join  <- base %>%
-    dplyr::rename(Census = census) %>%
     dplyr::mutate(Census = as.character(Census)) %>%
     dplyr::left_join(nested.data.isco.cross,by = "Census")
 
