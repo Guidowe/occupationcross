@@ -1,5 +1,3 @@
-context("test-isco08_to_isco88")
-
 test_that("check ncols", {
 
   crossed_base <- toy_base_lfs %>%

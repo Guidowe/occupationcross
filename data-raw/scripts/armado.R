@@ -6,7 +6,6 @@ library(occupationcross)
 devtools::load_all()
 suma(1:10)
 #check() # Es el chequeo general del paquete
-library(devtools)
 use_mit_license("Guido Weksler")
 document()
 install()
@@ -21,6 +20,9 @@ use_package("stringr")
 use_package("stringr")
 use_r("Census_to_SOC")
 use_r("soc2010_to_isco_08")
+use_r("cno2017_to_isco_08")
+
+use_r("sinco2011_to_isco_08")
 use_r("isco_08_to_isco_88_4digit")
 
 use_test("isco08_to_isco88")
