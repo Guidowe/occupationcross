@@ -37,14 +37,28 @@ library(occupationcross)
 library(tidyverse)
 ```
 
-Below is a sample from a database from USA - Current Population Survey, which contains a variable corresponding to the Census 2010 occupational code, named as *"OCC"*
-```{r,warning=FALSE,message=FALSE}
-toy_base_ipums_cps_2018
+The objects ```available_classifications``` and ```available_crosswalks``` show respectively which are the classifications collected and which crosswalks can be obtained applying the functions contained in this package.
+```{r}
+occupationcross::available_classifications
 ```
-Applying the `census2010_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes.
+
+```{r}
+occupationcross::available_crosswalks
+```
+
+Let´s use a sample database from a Mexico´s household survey (Encuesta Nacional de Ocupación y Empleo) already embedded in this package. This database contains a variable named *"p3"* corresponding to  SINCO 2011 (Sistema Nacional de Clasificación de Ocupaciones - 2011) occupational codes
 ```{r,warning=FALSE,message=FALSE}
-census2010_to_isco08(base = toy_base_ipums_cps_2018,
-                     census = "OCC",
-                     code_titles=TRUE)
+toy_base_mexico
+```
+
+Applying the `sinco2011_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes. The `code_titles` parameter allows you to get the occupation names both from the origin classification and isco 08 classification
+```{r,warning=FALSE,message=FALSE}
+crossed_base <- sinco2011_to_isco08(
+  base = toy_base_mexico,
+  sinco = p3,
+  code_titles = TRUE)
+
+crossed_base %>% 
+  select(1,5:ncol(.))
 ```
 

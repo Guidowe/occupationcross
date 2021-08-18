@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #'
-#' base_crossed <- census2010_to_isco08(toy_base_ipums_cps_2018,census = "OCC",summary = TRUE)
+#' base_crossed <- census2010_to_isco08(toy_base_ipums_cps_2018,census = OCC,summary = TRUE)
 #'
 census2010_to_isco08<- function(base,census,summary = FALSE,code_titles = FALSE){
 
@@ -33,17 +33,9 @@ if(length(Codigos_error$Census)>=1){
         TRUE~ Census))
 }
 
-
-  sample.isco <- function(df) {
-    sample(df$ISCO,size = 1)
-  }
-
-  nested.data.isco.cross <- crosstable_census2010_soc2010_isco08 %>%
+nested.data.isco.cross <- crosstable_census2010_soc2010_isco08 %>%
     dplyr::group_by(Census,SOC) %>%
     tidyr::nest()
-
- #   toy_base_ipums_cps_2018  <- labelled::remove_labels(base)
- # save(toy_base_ipums_cps_2018,file = "data/toy_base_ipums_cps_2018.rda")
 
 base_join  <- base %>%
     dplyr::mutate(Census = as.character(Census)) %>%
@@ -51,12 +43,17 @@ base_join  <- base %>%
 
 set.seed(999971)
 
-  base_join_sample <- base_join %>%
-    dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
+sample.isco <- function(df) {
+  sample(df$ISCO,size = 1)
+}
+
+base_join_sample <- base_join %>%
+    dplyr::mutate(ISCO.08 = purrr::map(.x = data,
+                                       .f = sample.isco))  %>%
     dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
     dplyr::mutate(ISCO.08 = as.numeric(ISCO.08))
 
-  if (code_titles==TRUE) {
+if (code_titles==TRUE) {
 
     titles  <- crosstable_census2010_soc2010_isco08 %>%
       dplyr::mutate(ISCO.08 = as.numeric(ISCO)) %>%
@@ -71,13 +68,15 @@ set.seed(999971)
 
 return(base_join_sample)
 
-  if (summary==TRUE) {
+if (summary==TRUE) {
 
-    summary_cross <<- base_join_sample %>%
+    summary_cross <- base_join_sample %>%
       dplyr::group_by(Census,ISCO.08) %>%
       dplyr::summarise(Cases = dplyr::n())
 
-  }
+print(summary_cross)
+
+      }
 
 
 }

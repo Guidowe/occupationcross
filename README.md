@@ -1,24 +1,26 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-occupationcross
-===============
+
+# occupationcross
 
 <!-- badges: start -->
 <!-- badges: end -->
-The goal of occupationcross is to facilitate the application of crosswalks between occupational classifiers from different parts of the world.
 
-Installation
-------------
+The goal of occupationcross is to facilitate the application of
+crosswalks between occupational classifiers from different parts of the
+world.
 
-Install the development version of occupationcross from [GitHub](https://github.com/) with:
+## Installation
+
+Install the development version of occupationcross from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("Guidowe/occupationcross")
 ```
 
-Example
--------
+## Example
 
 This is a basic example of how this package works :
 
@@ -29,44 +31,91 @@ library(occupationcross)
 library(tidyverse)
 ```
 
-Below is a sample from a database from USA - Current Population Survey, which contains a variable corresponding to the Census 2010 occupational code, named as *"OCC"*
+The objects `available_classifications` and `available_crosswalks` show
+respectively which are the classifications collected and which
+crosswalks can be obtained applying the functions contained in this
+package.
 
 ``` r
-toy_base_ipums_cps_2018
-#> # A tibble: 2,000 x 8
-#>     YEAR MONTH   SEX   AGE  EDUC LABFORCE WKSTAT   OCC
-#>    <dbl> <int> <int> <int> <int>    <int>  <int> <dbl>
-#>  1  2018     3     1    27    73        2     11  4050
-#>  2  2018     3     1    55    92        2     13  4850
-#>  3  2018     3     1    54    73        1     99     0
-#>  4  2018     3     1    40    81        2     11  7330
-#>  5  2018     3     1    51    92        2     12  6260
-#>  6  2018     3     1    45    73        2     11  9130
-#>  7  2018     3     2    46    91        1     99     0
-#>  8  2018     3     1    22    73        2     11  5240
-#>  9  2018     3     2    59    81        2     50  4720
-#> 10  2018     3     1    71    81        1     99     0
-#> # ... with 1,990 more rows
+occupationcross::available_classifications
+#>   classification                                 classification_fullname
+#> 1        isco 08 International Standard Classification of Occupations 08
+#> 2        isco 88 International Standard Classification of Occupations 88
+#> 3     sinco 2011   Sistema Nacional de Clasificación de Ocupaciones 2011
+#> 4       cno 2001               Clasificador Nacional de Ocupaciones 2001
+#> 5    census 2010                 2010 Census Occupational Classification
+#> 6       soc 2010               2010 Standard Occupational Classification
+#>         country
+#> 1 International
+#> 2 International
+#> 3        Mexico
+#> 4     Argentina
+#> 5 United States
+#> 6 United States
 ```
 
-Applying the `census2010_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes.
+``` r
+occupationcross::available_crosswalks
+#> # A tibble: 5 x 3
+#>   from        to       detail                                         
+#>   <chr>       <chr>    <chr>                                          
+#> 1 cno 2001    isco 08  crosswalk only available to isco digits 1 and 2
+#> 2 sinco 2011  isco 08  complete crosswalk                             
+#> 3 isco 08     isco 88  complete crosswalk                             
+#> 4 census 2010 soc 2010 complete crosswalk                             
+#> 5 census 2010 isco 08  complete crosswalk
+```
+
+Let´s use a sample database from a Mexico´s household survey (Encuesta
+Nacional de Ocupación y Empleo) already embedded in this package. This
+database contains a variable named *“p3”* corresponding to SINCO 2011
+(Sistema Nacional de Clasificación de Ocupaciones - 2011) occupational
+codes
 
 ``` r
-census2010_to_isco08(base = toy_base_ipums_cps_2018,
-                     census = "OCC",
-                     code_titles=TRUE)
-#> # A tibble: 2,000 x 11
-#>     YEAR MONTH   SEX   AGE  EDUC LABFORCE WKSTAT Census SOC   ISCO.08 ISCO.title
-#>    <dbl> <int> <int> <int> <int>    <int>  <int> <chr>  <chr>   <dbl> <chr>     
-#>  1  2018     3     1    27    73        2     11 4050   35-3~    5246 Food serv~
-#>  2  2018     3     1    55    92        2     13 4850   41-4~    2433 Technical~
-#>  3  2018     3     1    54    73        1     99 0      <NA>       NA <NA>      
-#>  4  2018     3     1    40    81        2     11 7330   49-9~    7233 Agricultu~
-#>  5  2018     3     1    51    92        2     12 6260   47-2~    9313 Building ~
-#>  6  2018     3     1    45    73        2     11 9130   53-3~    8322 Car, taxi~
-#>  7  2018     3     2    46    91        1     99 0      <NA>       NA <NA>      
-#>  8  2018     3     1    22    73        2     11 5240   43-4~    4222 Contact c~
-#>  9  2018     3     2    59    81        2     50 4720   41-2~    5230 Cashiers ~
-#> 10  2018     3     1    71    81        1     99 0      <NA>       NA <NA>      
-#> # ... with 1,990 more rows
+toy_base_mexico
+#> # A tibble: 200 x 8
+#>      sex t_loc clase2  tue1 pos_ocu   per   fac    p3
+#>    <dbl> <dbl>  <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>
+#>  1     1     1      1     4       2   119   435  7121
+#>  2     2     1      1     1       1   119   542  5116
+#>  3     2     1      1     3       1   119   173  9611
+#>  4     2     3      0     0       0   119   411    NA
+#>  5     1     1      3     0       0   119   224    NA
+#>  6     2     1      0     0       0   119   104    NA
+#>  7     2     1      0     0       0   119   314    NA
+#>  8     2     1      4     0       0   119   104    NA
+#>  9     1     4      1     1       3   119   450  6111
+#> 10     2     4      1     3       3   119   293  4111
+#> # ... with 190 more rows
+```
+
+Applying the `sinco2011_to_isco08()` function we can obtain a
+reclassification of each case of our database into International
+Standard Classification of Occupations - 08 (ISCO-08) codes. The
+`code_titles` parameter allows you to get the occupation names both from
+the origin classification and isco 08 classification
+
+``` r
+crossed_base <- sinco2011_to_isco08(
+  base = toy_base_mexico,
+  sinco = p3,
+  code_titles = TRUE)
+
+crossed_base %>% 
+  select(1,5:ncol(.))
+#> # A tibble: 327 x 9
+#>      sex pos_ocu   per   fac    p3 cod.origin label.origin               ISCO.08
+#>    <dbl>   <dbl> <dbl> <dbl> <dbl> <chr>      <chr>                      <chr>  
+#>  1     1       2   119   435  7121 7121       "Albañiles, mamposteros y~ 7112   
+#>  2     2       1   119   542  5116 5116       "Meseros "                 5131   
+#>  3     2       1   119   542  5116 5116       "Meseros "                 5131   
+#>  4     2       1   119   173  9611 9611       "Trabajadores domésticos " 9111   
+#>  5     2       0   119   411    NA 0000        <NA>                      0000   
+#>  6     2       0   119   411    NA 0000        <NA>                      0000   
+#>  7     1       0   119   224    NA 0000        <NA>                      0000   
+#>  8     1       0   119   224    NA 0000        <NA>                      0000   
+#>  9     2       0   119   104    NA 0000        <NA>                      0000   
+#> 10     2       0   119   104    NA 0000        <NA>                      0000   
+#> # ... with 317 more rows, and 1 more variable: label.destination <chr>
 ```
