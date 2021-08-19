@@ -40,5 +40,8 @@ available::available("occupationcross")
 ###Evitar caracteres raros
 stringi::stri_escape_unicode()
 
+####Credenciales en github####
+usethis::create_github_token()
+gitcreds::gitcreds_set()
 #Vignettes
 usethis::use_vignette("occupationcross")
