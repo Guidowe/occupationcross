@@ -18,7 +18,7 @@ complexity_level <- function(base, isco, iscotype, summary = FALSE){
 
     base <- base %>%
       dplyr::mutate(
-        complexity_level= factor(case_when( {{isco}}  %in% 9000:9999         ~ "Low",
+        complexity_level= factor(dplyr::case_when( {{isco}}  %in% 9000:9999         ~ "Low",
                                             {{isco}}  %in% 4000:8999        ~ "Medium",
                                             {{isco}}  %in% 1000:3999        ~ "High"),
                                             levels= c("Low", "Medium", "High")))
@@ -68,7 +68,7 @@ complexity_level <- function(base, isco, iscotype, summary = FALSE){
 
     base <- base_join_sample %>%
       dplyr::mutate(
-        complexity_level= factor(case_when( ISCO.08  %in% 9000:9999        ~ "Low",
+        complexity_level= factor(dplyr::case_when( ISCO.08  %in% 9000:9999        ~ "Low",
                                             ISCO.08  %in% 4000:8999        ~ "Medium",
                                             ISCO.08  %in% 1000:3999        ~ "High"),
                                  levels= c("Low", "Medium", "High"))) %>%
