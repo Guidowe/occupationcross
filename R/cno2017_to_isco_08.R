@@ -13,12 +13,12 @@
 # 'base <- cno2017_to_isco08(base = toy_base_eph_argentina,cno = PP04D_COD)
 
 cno2017_to_isco08<- function(base,
-                               cno,
-                               summary = FALSE,
-                               code_titles = FALSE){
+                             cno,
+                             summary = FALSE,
+                             code_titles = FALSE){
 
   base <-  base %>%
-    dplyr::mutate(cod.origin = as.character({{cno}}),
+    dplyr::mutate(cod.origin = as.character(PP04D_COD),
                   cod.origin = cod.origin,
                   cod.origin = stringr::str_pad(cod.origin, 5, side = 'left', pad = '0'))
 
@@ -38,19 +38,11 @@ cno2017_to_isco08<- function(base,
           cod.origin %in% Codigos_error$cod.origin ~ "0000",
           TRUE~ cod.origin))
   }
-
-
-  sample.isco <- function(df) {
-    sample(df$cod.destination,size = 1)
-
-  }
-
-  nested.data.isco.cross <- crosstable_sinco2011_isco08 %>%
-    dplyr::mutate(cod.origin = as.character(cod.origin)) %>%
+  nested.data.isco.cross <- crosstable_cno2017_isco08 %>%
+    dplyr::select(cod.origin = cno.2017,
+                  ISCO.08  = isco08.2.digit) %>%
     dplyr::add_row(cod.origin = "0000",
-                   cod.destination = "0000") %>%
-    dplyr::group_by(cod.origin,label.origin) %>%
-    tidyr::nest()
+                   ISCO.08 = "0000")
 
 
   base_join  <- base %>%
@@ -59,32 +51,22 @@ cno2017_to_isco08<- function(base,
                                       !is.na(cod.origin)  ~cod.origin)) %>%
     dplyr::left_join(nested.data.isco.cross,by = "cod.origin")
 
-  set.seed(999971)
+  # if (code_titles==TRUE) {
+  #
+  #   titles  <- crosstable_sinco2011_isco08 %>%
+  #     dplyr::mutate(ISCO.08 = as.character(cod.destination)) %>%
+  #     dplyr::select(ISCO.08,label.destination) %>%
+  #     unique()
+  #
+  #   base_join_sample <- base_join_sample %>%
+  #     dplyr::left_join(titles)
+  # }
 
-  base_join_sample <- base_join %>%
-    dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
-    dplyr::select(-data) %>%
-    dplyr::mutate(ISCO.08 = as.character(ISCO.08))
-  # Elimino la columna loca que había creado para el sorteo
-
-  if (code_titles==TRUE) {
-
-    titles  <- crosstable_sinco2011_isco08 %>%
-      dplyr::mutate(ISCO.08 = as.character(cod.destination)) %>%
-      dplyr::select(ISCO.08,label.destination) %>%
-      unique()
-
-    base_join_sample <- base_join_sample %>%
-      dplyr::left_join(titles)
-  }
-
-
-
-  return(base_join_sample)
+return(base_join)
 
   if (summary==TRUE) {
 
-    summary_cross <<- base_join_sample %>%
+    summary_cross <<- base_join %>%
       dplyr::group_by(cod.origin,ISCO.08) %>%
       dplyr::summarise(Cases = dplyr::n())
 

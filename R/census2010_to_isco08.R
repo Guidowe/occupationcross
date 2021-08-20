@@ -11,7 +11,10 @@
 #'
 #' base_crossed <- census2010_to_isco08(toy_base_ipums_cps_2018,census = OCC,summary = TRUE)
 #'
-census2010_to_isco08<- function(base,census,summary = FALSE,code_titles = FALSE){
+census2010_to_isco08<- function(base,
+                                census,
+                                summary = FALSE,
+                                code_titles = FALSE){
 
 base <-  base %>%
     dplyr::mutate(Census = as.character({{census}}))

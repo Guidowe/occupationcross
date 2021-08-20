@@ -16,9 +16,9 @@
 #'  code_titles = TRUE)
 
 sinco2011_to_isco08<- function(base,
-                                sinco,
-                                summary = FALSE,
-                                code_titles = FALSE){
+                               sinco,
+                               summary = FALSE,
+                               code_titles = FALSE){
 
   base <-  base %>%
     dplyr::mutate(cod.origin = as.character({{sinco}}))
@@ -41,10 +41,6 @@ sinco2011_to_isco08<- function(base,
   }
 
 
-  sample.isco <- function(df) {
-    sample(df$cod.destination,size = 1)
-
-  }
 
   nested.data.isco.cross <- crosstable_sinco2011_isco08 %>%
     dplyr::mutate(cod.origin = as.character(cod.origin)) %>%
@@ -56,11 +52,16 @@ sinco2011_to_isco08<- function(base,
 
   base_join  <- base %>%
     dplyr::mutate(cod.origin =
-      dplyr::case_when( is.na(cod.origin)  ~"0000",
+    dplyr::case_when( is.na(cod.origin)  ~"0000",
                        !is.na(cod.origin)  ~cod.origin)) %>%
     dplyr::left_join(nested.data.isco.cross,by = "cod.origin")
 
   set.seed(999971)
+
+sample.isco <- function(df) {
+    sample(df$cod.destination,size = 1)
+
+  }
 
   base_join_sample <- base_join %>%
     dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
@@ -73,7 +74,7 @@ sinco2011_to_isco08<- function(base,
     titles  <- crosstable_sinco2011_isco08 %>%
       dplyr::mutate(ISCO.08 = as.character(cod.destination)) %>%
       dplyr::select(ISCO.08,label.destination) %>%
-      unique()
+      dplyr::distinct(ISCO.08,.keep_all = T)
 
     base_join_sample <- base_join_sample %>%
       dplyr::left_join(titles)

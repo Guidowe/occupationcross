@@ -24,6 +24,7 @@ use_r("cno2017_to_isco_08")
 
 use_r("sinco2011_to_isco_08")
 use_r("isco_08_to_isco_88_4digit")
+use_r("reclassify_to_isco08")
 
 use_test("isco08_to_isco88")
 use_test("census2010_to_isco08")
