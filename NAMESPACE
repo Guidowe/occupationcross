@@ -3,6 +3,7 @@
 export("%>%")
 export(census2010_to_isco08)
 export(census2010_to_soc2010)
+export(cno2001_to_isco08)
 export(cno2017_to_isco08)
 export(complexity_level)
 export(isco08_to_isco88)

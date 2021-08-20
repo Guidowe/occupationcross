@@ -21,6 +21,7 @@ use_package("stringr")
 use_r("Census_to_SOC")
 use_r("soc2010_to_isco_08")
 use_r("cno2017_to_isco_08")
+use_r("cno2001_to_isco_08")
 
 use_r("sinco2011_to_isco_08")
 use_r("isco_08_to_isco_88_4digit")

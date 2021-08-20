@@ -41,6 +41,15 @@ disclaimer: This script uses crosswalks provided by different statistical office
 
 
 USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC, classif_origin="Census2010")
-ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina,variable = PP04D_COD, classif_origin="CNO2017")
 MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
+
+Example using "eph" package to download a database from
+ArgentinaÂ´s Encuesta Permanente de Hogares
+
+base_eph <- eph::get_microdata(year = 2019,trimester = 2)
+ARG_database_with_isco08 <- reclassify_to_isco08(base_eph,
+                                                variable = PP04D_COD,
+                                                classif_origin="CNO2001",
+                                                code_titles = TRUE
+                                                add_complexity =TRUE)
 }

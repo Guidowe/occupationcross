@@ -16,8 +16,17 @@
 #'
 #'
 #' USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC, classif_origin="Census2010")
-#' ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina,variable = PP04D_COD, classif_origin="CNO2017")
 #' MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
+#'
+#'Example using "eph" package to download a database from
+#'Argentina´s Encuesta Permanente de Hogares
+#'
+#' base_eph <- eph::get_microdata(year = 2019,trimester = 2)
+#' ARG_database_with_isco08 <- reclassify_to_isco08(base_eph,
+#'                                                 variable = PP04D_COD,
+#'                                                 classif_origin="CNO2001",
+#'                                                 code_titles = TRUE
+#'                                                 add_complexity =TRUE)
 
 reclassify_to_isco08 <- function(base,
                                  variable,
@@ -26,7 +35,7 @@ reclassify_to_isco08 <- function(base,
                                  code_titles = F,
                                  summary = F){
 
-  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2017","SINCO2011"),
+  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","SINCO2011"),
                        msg = paste0 ("'",classif_origin, "' is not any of the classifications available"))
 
 if (classif_origin=="SINCO2011"){
@@ -36,6 +45,14 @@ base  <- sinco2011_to_isco08(base = base,
                              summary = summary)
 return(base)
 }
+
+if (classif_origin=="CNO2001"){
+    base  <- cno2001_to_isco08(base = base,
+                               cno = {{variable}},
+                               code_titles = code_titles,
+                               summary = summary)
+
+  }
 
 if (classif_origin=="CNO2017"){
   base  <- cno2017_to_isco08(base = base,
