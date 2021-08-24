@@ -3,7 +3,7 @@
 #' @param base Dataframe including a variable with occupational codes contained in "available_classifications"
 #' @param variable  variable containing occupational codes
 #' @param classif_origin character vector specifying the Classification. "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico) are supported.
-#' @param add_complexity If TRUE adds a new variable with the occupation complexity level based on ISCO 08 skill levels. The new complexity_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.
+#' @param add_skill If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.
 #' @param code_titles If TRUE adds classification titles besides from codes.
 #' @param summary If TRUE provides other dataframe counting how many cases where asigned for each Census 08 code to each ISCO88 code.
 #'
@@ -26,12 +26,12 @@
 #'                                                 variable = PP04D_COD,
 #'                                                 classif_origin="CNO2001",
 #'                                                 code_titles = TRUE
-#'                                                 add_complexity =TRUE)
+#'                                                 add_skill =TRUE)
 
 reclassify_to_isco08 <- function(base,
                                  variable,
                                  classif_origin,
-                                 add_complexity = F,
+                                 add_skill = F,
                                  code_titles = F,
                                  summary = F){
 
@@ -69,13 +69,13 @@ if (classif_origin=="Census2010"){
                                 summary = summary)
 }
 
-  if (add_complexity==F){
+  if (add_skill==F){
     return(base)
   }
   else{
     base_join_sample <- base %>%
       dplyr::mutate(
-        complexity_level= factor(dplyr::case_when(stringr::str_sub(ISCO.08,1,1)  %in% 9         ~ "Low",
+        skill_level= factor(dplyr::case_when(stringr::str_sub(ISCO.08,1,1)  %in% 9         ~ "Low",
                                                   stringr::str_sub(ISCO.08,1,1)  %in% 4:8        ~ "Medium",
                                                   stringr::str_sub(ISCO.08,1,1)  %in% 1:3        ~ "High"),
                                  levels= c("Low", "Medium", "High")))
