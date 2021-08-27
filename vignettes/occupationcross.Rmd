@@ -1,8 +1,8 @@
 ---
-title: "Ejemplo de uso de occupationcross"
+title: "WorkFlow Example of occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Ejemplo de uso}
+  %\VignetteIndexEntry{WorkFlow Example of occupationcross}
   %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,58 +26,60 @@ library(occupationcross)
 To install development version:
 
 ```{r, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-# install.packages('devtools') si no tiene instalado devtools
+# install.packages('devtools') if devtools is not installed
 
 devtools::install_github("Guidowe/occupationcross")
 ```
 
 
 ## WorkFlow Example: 
-Lets read a household survey database that has occupations codified in Census 2010 codes. In our example we will use IPUMS database from   Current Population Survey (CPS-United States).          
-
-We will take our `census2010_to_isco08()`function to aplly crosswalk to ISCO 08 codes.  
+Let's read two databases from household surveys that identify occupations based on national classifiers. In our example we will use IPUMS database from Current Population Survey (CPS) from United States Mexico´s Encuesta Nacional de Ocupación y Empleo database (ENOE).
 
 ### Load libraries: 
 
 ```{r message=FALSE, warning=FALSE}
 library(occupationcross)
-library(dplyr)
-library(tidyr)
 ```
 
 ### Load database:
-Besides from USA CPS database we will read a Italy´s database from Labour Force Survey (LFS), which is allready codified in ISCO-08 codes
+Besides from USA CPS database we will read a 
 
 ```{r}
 usa_cps_base <- readRDS("../data-raw/bases/Base_USA2018.RDS")
-italy_lfs_base <- readRDS("../data-raw/bases/IT2014.RDS")
+mexico_base <- readRDS("../data-raw/bases/mexico_T31019.RDS")
 ```
 
-### Apply crosswalk to ISCO 08 codes: `census2010_to_isco08()`
+### Apply crosswalk to ISCO 08 codes: `reclassify_to_isco08()`
 Our function requieres three basic arguments :
 
-- `base`: Dataframe containing a variable with Census 2010 codes
-- `census`: character indicating the variable name containing Census 2010 codes. In our case, in IPUMS-CPS database it is named "OCC"
-- `summary`: logical indicating if you want a summary table counting case from each census2010 code to eacho isco08 code.
+- `base`: Dataframe containing a variable corresponding to any occupational classification detailed in `available_classifications`.  
+- `variable`: variable containing occupational codes. In our case, they are named *OCC* in CPS-USA database, and *P3* in ENOE - Mexico database.  
+- `classif_origin`: character indicating which classification is (lo) `available_classifications`.   
+- `add_skill`: logical indicating if you want other variable identifying skill level ("Low","Medium" or "High") according to ISCO-08 codes.
 - `code_titles`: logical indicating if you want occupational titles besides codes.
 ```{r message=FALSE, warning=FALSE}
-usa_cps_base_crossed <- census2010_to_isco08(base = usa_cps_base,census = "OCC",summary = FALSE,code_titles = T)
+mexico_base_crossed <- reclassify_to_isco08(base = mexico_base,
+                                            variable = P3,
+                                            classif_origin = "SINCO2011",
+                                            add_skill = T,
+                                            code_titles = T)
+
+usa_base_crossed <- reclassify_to_isco08(base = usa_cps_base,
+                                             variable = OCC,
+                                             classif_origin = "Census2010",
+                                             add_skill = T,
+                                             code_titles = T)
+
+```
+Based on this reclassification to ISCO-08 we can now  compare the distribution of skill levels of occupations among both countries.   
+ - Nearly 50% of U.S. occupations are classified at the high-skill level 
+ - Only 22% of Mexico occupations are classified at the high-skill level 
+
+```{r}
+prop.table(table(usa_base_crossed$skill_level))
 ```
 
 ```{r}
-ncol(usa_cps_base)
-ncol(usa_cps_base_crossed)
+prop.table(table(mexico_base_crossed$skill_level))
 ```
 
-The resulting dataframe *_usa_cps_base_crossed* has now three more variables provinding ISCO 08 codes, ISCO 08 titles and SOC 2010 codes (which was used to make an intermediate crosswalk).
-
-Let´s see which are the most frecuent occupation in USA-CPS
-```{r message=FALSE, warning=FALSE}
- usa_cps_base_crossed %>% 
-  filter(!is.na(ISCO.08)) %>% 
-  group_by(ISCO.title) %>% 
-  summarise(Total = sum(ASECWT)) %>% 
-  ungroup() %>% 
-  top_n(.,n = 10,Total) %>% 
-  arrange(desc(Total))
-```

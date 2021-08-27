@@ -34,7 +34,6 @@ base  <- sinco2011_to_isco08(base = base,
                              sinco = {{variable}},
                              code_titles = code_titles,
                              summary = summary)
-return(base)
 }
 
 if (classif_origin=="CNO2001"){
@@ -66,10 +65,11 @@ if (classif_origin=="Census2010"){
   else{
     base_join_sample <- base %>%
       dplyr::mutate(
-        skill_level= factor(dplyr::case_when(stringr::str_sub(ISCO.08,1,1)  %in% 9         ~ "Low",
-                                                  stringr::str_sub(ISCO.08,1,1)  %in% 4:8        ~ "Medium",
-                                                  stringr::str_sub(ISCO.08,1,1)  %in% 1:3        ~ "High"),
-                                 levels= c("Low", "Medium", "High")))
+        skill_level= factor(dplyr::case_when(
+          stringr::str_sub(ISCO.08,1,1)  %in% 9         ~ "Low",
+          stringr::str_sub(ISCO.08,1,1)  %in% 4:8        ~ "Medium",
+          stringr::str_sub(ISCO.08,1,1)  %in% 1:3        ~ "High"),
+          levels= c("Low", "Medium", "High")))
 
 
     return(base_join_sample)
