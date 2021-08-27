@@ -2,7 +2,7 @@
 title: "WorkFlow Example of occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{WorkFlow Example of occupationcross}
+  %\VignetteIndexEntry{occupationcross}
   %\VignetteEngine{rmarkdown::render}
   %\VignetteEncoding{UTF-8}
 ---
@@ -41,8 +41,6 @@ Let's read two databases from household surveys that identify occupations based 
 library(occupationcross)
 ```
 
-### Load database:
-Besides from USA CPS database we will read a 
 
 ```{r}
 usa_cps_base <- readRDS("../data-raw/bases/Base_USA2018.RDS")
