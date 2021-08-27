@@ -8,7 +8,7 @@ reclassify_to_isco08(
   base,
   variable,
   classif_origin,
-  add_complexity = F,
+  add_skill = F,
   code_titles = F,
   summary = F
 )
@@ -20,7 +20,7 @@ reclassify_to_isco08(
 
 \item{classif_origin}{character vector specifying the Classification. "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico) are supported.}
 
-\item{add_complexity}{If TRUE adds a new variable with the occupation complexity level based on ISCO 08 skill levels. The new complexity_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.}
+\item{add_skill}{If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.}
 
 \item{code_titles}{If TRUE adds classification titles besides from codes.}
 
@@ -42,14 +42,5 @@ disclaimer: This script uses crosswalks provided by different statistical office
 
 USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC, classif_origin="Census2010")
 MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
-
-Example using "eph" package to download a database from
-ArgentinaÂ´s Encuesta Permanente de Hogares
-
-base_eph <- eph::get_microdata(year = 2019,trimester = 2)
-ARG_database_with_isco08 <- reclassify_to_isco08(base_eph,
-                                                variable = PP04D_COD,
-                                                classif_origin="CNO2001",
-                                                code_titles = TRUE
-                                                add_complexity =TRUE)
+ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina, PP04D_COD, classif_origin="CNO2001")
 }

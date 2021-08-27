@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "guidowe45@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: This package will allow you to take Household Surveys from Europe and United States, to easily apply crosswalks between multiple Occupational Classifications sucha as ISCO 08, ISCO 88, SOC, Census.
+Description: Este paquete brinda herramientas para trabajar con variables asociadas a clasificadores de ocupación de distintos países del mundo, permitiendo su reclasificación hacia el International Standard Occupational Classification (ISCO 08).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -23,8 +23,9 @@ Imports:
     purrr,
     tidyr,
     tidyselect,
-    assertthat
-Depends: R (>= 2.10)
+    assertthat,
+    attempt
+Depends: R (>= 3.5.0)
 URL: https://github.com/Guidowe/occupationcross
 BugReports: https://github.com/Guidowe/occupationcross/issues
 VignetteBuilder: knitr

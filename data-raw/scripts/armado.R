@@ -47,3 +47,7 @@ usethis::create_github_token()
 gitcreds::gitcreds_set()
 #Vignettes
 usethis::use_vignette("occupationcross")
+
+###Página del paquete####
+#install.packages("pkgdown")
+pkgdown::build_site()
