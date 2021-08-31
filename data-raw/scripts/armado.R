@@ -50,6 +50,6 @@ usethis::use_vignette("occupationcross")
 
 ###Página del paquete####
 #install.packages("pkgdown")
-pkgdown::build_site()
-pkgdown::build_articles_index()
-pkgdown::build_articles()
+pkgdown::build_site() # Arma todo el sitio de nuevo. El Índice (Casita), y las secciones siguientes
+#pkgdown::build_articles_index() #Arma indice de articulos
+#pkgdown::build_articles() # Arman articulos
