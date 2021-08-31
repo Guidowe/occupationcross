@@ -51,3 +51,5 @@ usethis::use_vignette("occupationcross")
 ###Página del paquete####
 #install.packages("pkgdown")
 pkgdown::build_site()
+pkgdown::build_articles_index()
+pkgdown::build_articles()

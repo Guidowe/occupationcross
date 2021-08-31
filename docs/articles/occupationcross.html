@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ejemplo de uso de occupationcross • occupationcross</title>
+<title>WorkFlow Example of occupationcross • occupationcross</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Ejemplo de uso de occupationcross">
+<script src="../pkgdown.js"></script><meta property="og:title" content="WorkFlow Example of occupationcross">
 <meta property="og:description" content="occupationcross">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -70,7 +70,7 @@
       </header><script src="occupationcross_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Ejemplo de uso de occupationcross</h1>
+      <h1 data-toc-skip>WorkFlow Example of occupationcross</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/Guidowe/occupationcross/blob/master/vignettes/occupationcross.Rmd"><code>vignettes/occupationcross.Rmd</code></a></small>
@@ -88,65 +88,76 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install development version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages('devtools') si no tiene instalado devtools</span>
+<code class="sourceCode R"><span class="co"># install.packages('devtools') if devtools is not installed</span>
 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"Guidowe/occupationcross"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="workflow-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow-example" class="anchor"></a>WorkFlow Example:</h2>
-<p>Lets read a household survey database that has occupations codified in Census 2010 codes. In our example we will use IPUMS database from Current Population Survey (CPS-United States).</p>
-<p>We will take our <code><a href="../reference/census2010_to_isco08.html">census2010_to_isco08()</a></code>function to aplly crosswalk to ISCO 08 codes.</p>
-<div id="load-libraries" class="section level3">
+<p>Let’s read two databases from household surveys that identify occupations based on national classifiers. In our example we will use IPUMS database from Current Population Survey (CPS) from United States Mexico´s Encuesta Nacional de Ocupación y Empleo database (ENOE).</p>
+<div id="load-the-package" class="section level3">
 <h3 class="hasAnchor">
-<a href="#load-libraries" class="anchor"></a>Load libraries:</h3>
+<a href="#load-the-package" class="anchor"></a>Load the package:</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross">occupationcross</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross">occupationcross</a></span><span class="op">)</span></code></pre></div>
 </div>
-<div id="load-database" class="section level3">
+<div id="read-dataframes" class="section level3">
 <h3 class="hasAnchor">
-<a href="#load-database" class="anchor"></a>Load database:</h3>
-<p>Besides from USA CPS database we will read a Italy´s database from Labour Force Survey (LFS), which is allready codified in ISCO-08 codes</p>
+<a href="#read-dataframes" class="anchor"></a>Read dataframes</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">usa_cps_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/Base_USA2018.RDS"</span><span class="op">)</span>
-<span class="va">italy_lfs_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/IT2014.RDS"</span><span class="op">)</span></code></pre></div>
+<span class="va">mexico_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/mexico_T31019.RDS"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="apply-crosswalk-to-isco-08-codes-census2010_to_isco08" class="section level3">
+<div id="apply-crosswalk-to-isco-08-codes-reclassify_to_isco08" class="section level3">
 <h3 class="hasAnchor">
-<a href="#apply-crosswalk-to-isco-08-codes-census2010_to_isco08" class="anchor"></a>Apply crosswalk to ISCO 08 codes: <code>census2010_to_isco08()</code>
+<a href="#apply-crosswalk-to-isco-08-codes-reclassify_to_isco08" class="anchor"></a>Apply crosswalk to ISCO 08 codes: <code>reclassify_to_isco08()</code>
 </h3>
 <p>Our function requieres three basic arguments :</p>
 <ul>
 <li>
-<code>base</code>: Dataframe containing a variable with Census 2010 codes</li>
+<code>base</code>: Dataframe containing a variable corresponding to any occupational classification detailed in <code>available_classifications</code>.<br>
+</li>
 <li>
-<code>census</code>: character indicating the variable name containing Census 2010 codes. In our case, in IPUMS-CPS database it is named “OCC”</li>
+<code>variable</code>: variable containing occupational codes. In our case, they are named <em>OCC</em> in CPS-USA database, and <em>P3</em> in ENOE - Mexico database.<br>
+</li>
 <li>
-<code>summary</code>: logical indicating if you want a summary table counting case from each census2010 code to eacho isco08 code.</li>
+<code>classif_origin</code>: character indicating which classification is used in original database. Look at <code>available_classifications</code>.<br>
+</li>
+<li>
+<code>add_skill</code>: logical indicating if you want other variable identifying skill level (“Low”,“Medium” or “High”) according to ISCO-08 codes.</li>
 <li>
 <code>code_titles</code>: logical indicating if you want occupational titles besides codes.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">usa_cps_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/census2010_to_isco08.html">census2010_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">usa_cps_base</span>,census <span class="op">=</span> <span class="st">"OCC"</span>,summary <span class="op">=</span> <span class="cn">FALSE</span>,code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">mexico_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">mexico_base</span>,
+                                            variable <span class="op">=</span> <span class="va">P3</span>,
+                                            classif_origin <span class="op">=</span> <span class="st">"SINCO2011"</span>,
+                                            add_skill <span class="op">=</span> <span class="cn">T</span>,
+                                            code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+
+<span class="va">usa_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">usa_cps_base</span>,
+                                             variable <span class="op">=</span> <span class="va">OCC</span>,
+                                             classif_origin <span class="op">=</span> <span class="st">"Census2010"</span>,
+                                             add_skill <span class="op">=</span> <span class="cn">T</span>,
+                                             code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="comparing-skill-levels-between-countries" class="section level3">
+<h3 class="hasAnchor">
+<a href="#comparing-skill-levels-between-countries" class="anchor"></a>Comparing skill levels between countries:</h3>
+<p>Based on this reclassification to ISCO-08 we can now compare the distribution of skill levels of occupations among both countries.<br>
+- Nearly 50% of U.S. occupations are classified at the high-skill level.<br>
+- Only 22% of Mexico occupations are classified at the high-skill level</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">usa_cps_base</span><span class="op">)</span>
-<span class="co">#&gt; [1] 110</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">usa_cps_base_crossed</span><span class="op">)</span>
-<span class="co">#&gt; [1] 114</span></code></pre></div>
-<p>The resulting dataframe *_usa_cps_base_crossed* has now three more variables provinding ISCO 08 codes, ISCO 08 titles and SOC 2010 codes (which was used to make an intermediate crosswalk).</p>
-<p>Let´s see which are the most frecuent occupation in USA-CPS</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">usa_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Low    Medium      High </span>
+<span class="co">#&gt; 0.1149970 0.4039943 0.4810086</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"> <span class="va">usa_cps_base_crossed</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ISCO.08</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">ISCO.title</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Total <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ASECWT</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/top_n.html">top_n</a></span><span class="op">(</span><span class="va">.</span>,n <span class="op">=</span> <span class="fl">10</span>,<span class="va">Total</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Total</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 0 x 2</span>
-<span class="co">#&gt; # ... with 2 variables: ISCO.title &lt;chr&gt;, Total &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">mexico_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;       Low    Medium      High </span>
+<span class="co">#&gt; 0.1835336 0.5991705 0.2172959</span></code></pre></div>
 </div>
 </div>
   </div>

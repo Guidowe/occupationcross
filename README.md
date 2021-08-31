@@ -90,32 +90,39 @@ toy_base_mexico
 #> # ... with 190 more rows
 ```
 
-Applying the `sinco2011_to_isco08()` function we can obtain a
+Applying the `reclassify_to_isco08()` function we can obtain a
 reclassification of each case of our database into International
-Standard Classification of Occupations - 08 (ISCO-08) codes. The
-`code_titles` parameter allows you to get the occupation names both from
-the origin classification and isco 08 classification
+Standard Classification of Occupations - 08 (ISCO-08) codes.  
+- The `classif_origin` is used to specify which classification is used
+in the original database.  
+- The `add_skill` parameter allows you to add a new variable identifying
+skill level of each occupation according to ISCO-08 classification of
+major groups.  
+- The `code_titles` parameter allows you to get the occupation names
+both from the origin classification and isco 08 classification
 
 ``` r
-crossed_base <- sinco2011_to_isco08(
-  base = toy_base_mexico,
-  sinco = p3,
-  code_titles = TRUE)
+crossed_base <- reclassify_to_isco08(base = toy_base_mexico,
+                                     variable = p3,
+                                     classif_origin = "SINCO2011",
+                                     add_skill = T,
+                                     code_titles = T)
+
 
 crossed_base %>% 
-  select(1,5:ncol(.))
-#> # A tibble: 327 x 9
-#>      sex pos_ocu   per   fac    p3 cod.origin label.origin               ISCO.08
-#>    <dbl>   <dbl> <dbl> <dbl> <dbl> <chr>      <chr>                      <chr>  
-#>  1     1       2   119   435  7121 7121       "Albañiles, mamposteros y~ 7112   
-#>  2     2       1   119   542  5116 5116       "Meseros "                 5131   
-#>  3     2       1   119   542  5116 5116       "Meseros "                 5131   
-#>  4     2       1   119   173  9611 9611       "Trabajadores domésticos " 9111   
-#>  5     2       0   119   411    NA 0000        <NA>                      0000   
-#>  6     2       0   119   411    NA 0000        <NA>                      0000   
-#>  7     1       0   119   224    NA 0000        <NA>                      0000   
-#>  8     1       0   119   224    NA 0000        <NA>                      0000   
-#>  9     2       0   119   104    NA 0000        <NA>                      0000   
-#> 10     2       0   119   104    NA 0000        <NA>                      0000   
-#> # ... with 317 more rows, and 1 more variable: label.destination <chr>
+  select(p3,ISCO.08,label.destination,skill_level)
+#> # A tibble: 200 x 4
+#>       p3 ISCO.08 label.destination                                   skill_level
+#>    <dbl> <chr>   <chr>                                               <fct>      
+#>  1  7121 7112    Albañiles                                           Medium     
+#>  2  5116 5131    Camareros de mesas                                  Medium     
+#>  3  9611 9111    Limpiadores y asistentes domésticos                 Low        
+#>  4    NA 0000    No tiene correspondencia                            <NA>       
+#>  5    NA 0000    No tiene correspondencia                            <NA>       
+#>  6    NA 0000    No tiene correspondencia                            <NA>       
+#>  7    NA 0000    No tiene correspondencia                            <NA>       
+#>  8    NA 0000    No tiene correspondencia                            <NA>       
+#>  9  6111 6111    Agricultores y trabajadores calificados de cultivo~ Medium     
+#> 10  4111 5221    Comerciantes de tiendas                             Medium     
+#> # ... with 190 more rows
 ```

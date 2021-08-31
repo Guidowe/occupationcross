@@ -51,14 +51,19 @@ Let´s use a sample database from a Mexico´s household survey (Encuesta Naciona
 toy_base_mexico
 ```
 
-Applying the `sinco2011_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes. The `code_titles` parameter allows you to get the occupation names both from the origin classification and isco 08 classification
+Applying the `reclassify_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes.     
+ - The `classif_origin` is used to specify which classification is used in the original database.    
+ - The `add_skill` parameter allows you to add a new variable identifying skill level of each occupation according to ISCO-08 classification of major groups.    
+ - The `code_titles` parameter allows you to get the occupation names both from the origin classification and isco 08 classification
 ```{r,warning=FALSE,message=FALSE}
-crossed_base <- sinco2011_to_isco08(
-  base = toy_base_mexico,
-  sinco = p3,
-  code_titles = TRUE)
+crossed_base <- reclassify_to_isco08(base = toy_base_mexico,
+                                     variable = p3,
+                                     classif_origin = "SINCO2011",
+                                     add_skill = T,
+                                     code_titles = T)
+
 
 crossed_base %>% 
-  select(1,5:ncol(.))
+  select(p3,ISCO.08,label.destination,skill_level)
 ```
 
