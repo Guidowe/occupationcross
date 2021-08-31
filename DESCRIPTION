@@ -1,12 +1,9 @@
 Package: occupationcross
 Title: Package for making crosswalks among different Occupational codes
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Guido",
-           family = "Weksler",
-           role = c("aut", "cre"),
-           email = "guidowe45@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Authors@R: c(
+    person(given = "Guido",family = "Weksler",role = c("aut", "cre"),email = "guidowe45@gmail.com",comment = c(ORCID = "0000-0002-7486-9986")),
+    person(given = "Facundo",family = "Lastra",role = c("aut"),email = "facundol@hotmail.com"))
 Description: Este paquete brinda herramientas para trabajar con variables asociadas a clasificadores de ocupación de distintos países del mundo, permitiendo su reclasificación hacia el International Standard Occupational Classification (ISCO 08).
 License: MIT + file LICENSE
 Encoding: UTF-8
