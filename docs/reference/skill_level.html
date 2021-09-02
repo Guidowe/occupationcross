@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cross ISCO 08 a ISCO 88 - 4 digit — isco08_to_isco88_4digit • occupationcross</title>
+<title>Occupations skill level — skill_level • occupationcross</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Cross ISCO 08 a ISCO 88 - 4 digit — isco08_to_isco88_4digit" />
-<meta property="og:description" content="Cross ISCO 08 a ISCO 88 - 4 digit" />
+<meta property="og:title" content="Occupations skill level — skill_level" />
+<meta property="og:description" content="Occupations skill level" />
 
 
 
@@ -111,41 +111,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cross ISCO 08 a ISCO 88 - 4 digit</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Guidowe/occupationcross/blob/master/R/isco_08_to_isco_88_4digit.R'><code>R/isco_08_to_isco_88_4digit.R</code></a></small>
-    <div class="hidden name"><code>isco08_to_isco88_4digit.Rd</code></div>
+    <h1>Occupations skill level</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Guidowe/occupationcross/blob/master/R/skill_level.R'><code>R/skill_level.R</code></a></small>
+    <div class="hidden name"><code>skill_level.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Cross ISCO 08 a ISCO 88 - 4 digit</p>
+    <p>Occupations skill level</p>
     </div>
 
-    <pre class="usage"><span class='fu'>isco08_to_isco88_4digit</span><span class='op'>(</span><span class='va'>base</span>, <span class='va'>isco</span>, summary <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>skill_level</span><span class='op'>(</span><span class='va'>base</span>, <span class='va'>variable</span>, <span class='va'>classif_origin</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>base</th>
-      <td><p>Dataframe from any survey including a variable with ISCO 08 codes</p></td>
+      <td><p>Dataframe from any survey including a variable with occupation codes</p></td>
     </tr>
     <tr>
-      <th>isco</th>
-      <td><p>character vector containing ISCO 08 codes</p></td>
+      <th>variable</th>
+      <td><p>Character vector containing occupation codes</p></td>
     </tr>
     <tr>
-      <th>summary</th>
-      <td><p>If TRUE provides other dataframe counting how many cases where asigned for each ISCO08 code to each ISCO88 code.</p></td>
+      <th>classif_origin</th>
+      <td><p>Type of occupational classificaction. ISCO08, ISCO88, Census2010, SOC2010 and CNO2017 are supported.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes</p>
+    <p>The function returns the provided dataframe, adding a new variable with the occupation skill level. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='va'>base_crossed</span> <span class='op'>&lt;-</span> <span class='fu'>isco08_to_isco88_4digit</span><span class='op'>(</span><span class='va'>toy_base_piaac</span>,isco <span class='op'>=</span> <span class='st'>"ISCO08_C"</span>,summary <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>base_uruguay_skill</span> <span class='op'>&lt;-</span> <span class='fu'>skill_level</span><span class='op'>(</span><span class='va'>toy_base_uruguay</span>, <span class='va'>f71_2</span>, classif_origin<span class='op'>=</span><span class='st'>"ISCO08"</span><span class='op'>)</span>
+<span class='va'>base_mexico_skill</span> <span class='op'>&lt;-</span> <span class='fu'>skill_level</span><span class='op'>(</span><span class='va'>toy_base_mexico</span>, <span class='va'>p3</span>, classif_origin <span class='op'>=</span> <span class='st'>"SINCO2011"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: NA</span></div><div class='input'><span class='va'>base_eph_skill</span> <span class='op'>&lt;-</span> <span class='fu'>skill_level</span><span class='op'>(</span><span class='va'>toy_base_eph_argentina</span>, <span class='va'>PP04D_COD</span>, classif_origin <span class='op'>=</span> <span class='st'>"CNO2001"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: c(NA, "92333", "43331", "45331", "71331", "99998", "30132", "81339", "30339", "30319", "99997", "42339", "99991", "30123", "99999", "54333", "31333", "11331", "46333", "61331", "20131", "11131", "33123", "82131", "57122", "43332", "44331", "90333", "41331", "54322", "43131")</span></div><div class='input'><span class='va'>base_cps_skill</span> <span class='op'>&lt;-</span> <span class='fu'>skill_level</span><span class='op'>(</span><span class='va'>toy_base_ipums_cps_2018</span>, <span class='va'>OCC</span>, classif_origin <span class='op'>=</span>  <span class='st'>"Census2010"</span><span class='op'>)</span>
+
 
 </div></pre>
   </div>
