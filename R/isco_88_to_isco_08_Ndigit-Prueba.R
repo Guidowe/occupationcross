@@ -9,14 +9,12 @@
 #' @export
 #' @examples
 #'
-#' base_crossed <- isco_88_to_isco_08_4digit()
+#'
 #'
 
-base <- toy_base_peru
-isco <- "p505"
-digits <- 3
 
-isco88_to_isco08_4digit <- function(base,isco, digits, summary = FALSE){
+
+isco88_to_isco08_ndigit <- function(base,isco, digits, summary = FALSE){
 
   sample.isco <- function(df) {
     sample(df$ISCO08, size = 1)
@@ -28,7 +26,7 @@ isco88_to_isco08_4digit <- function(base,isco, digits, summary = FALSE){
       ISCO08 = as.integer(stringr::str_sub(string = `ISCO 08 Code`,1, as.numeric(digits)))) %>%
     dplyr::add_row(ISCO88 = 9999) %>%
     dplyr::add_row(ISCO88 = NA) %>%
-    select(ISCO88, ISCO08)
+    dplyr::select(ISCO88, ISCO08)
 
   nested.data.isco.cross <- cross_isco %>%
     dplyr::select(ISCO88, ISCO08) %>%
