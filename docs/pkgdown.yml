@@ -2,6 +2,7 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  Genre_analysis: Genre_analysis.html
   occupationcross: occupationcross.html
-last_built: 2021-08-31T16:27Z
+last_built: 2021-09-15T17:55Z
 

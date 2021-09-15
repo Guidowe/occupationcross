@@ -78,24 +78,24 @@ reclassify_to_isco08 <- function(base,
     base <- base %>%
       dplyr::mutate(
         major_group= factor(dplyr::case_when(
-          stringr::str_sub(ISCO.08,1,1)  %in% 9        ~ "9. Elementary Occupations Low complexity occupations",
+          stringr::str_sub(ISCO.08,1,1)  %in% 9        ~ "9. Elementary Occupations",
           stringr::str_sub(ISCO.08,1,1)  %in% 8        ~ "8. Plant and Machine Operators and Assemblers",
           stringr::str_sub(ISCO.08,1,1)  %in% 7        ~ "7. Craft and Related Trades Workers",
           stringr::str_sub(ISCO.08,1,1)  %in% 6        ~ "6. Skilled Agricultural, Forestry and Fishery Workers",
           stringr::str_sub(ISCO.08,1,1)  %in% 5        ~ "5. Services and Sales Workers",
-          stringr::str_sub(ISCO.08,1,1)  %in% 4        ~ "4. Clerical Support Workers Medium complexity occupations",
+          stringr::str_sub(ISCO.08,1,1)  %in% 4        ~ "4. Clerical Support Workers",
           stringr::str_sub(ISCO.08,1,1)  %in% 3        ~ "3. Technicians and Associate Professionals",
           stringr::str_sub(ISCO.08,1,1)  %in% 2        ~ "2. Professionals",
           stringr::str_sub(ISCO.08,1,1)  %in% 1        ~ "1. Managers"),
           levels= c(  "1. Managers",
                       "2. Professionals",
                       "3. Technicians and Associate Professionals",
-                      "4. Clerical Support Workers Medium complexity occupations",
+                      "4. Clerical Support Workers",
                       "5. Services and Sales Workers",
                       "6. Skilled Agricultural, Forestry and Fishery Workers",
                       "7. Craft and Related Trades Workers",
                       "8. Plant and Machine Operators and Assemblers",
-                      "9. Elementary Occupations Low complexity occupations")))
+                      "9. Elementary Occupations")))
 
   }
 

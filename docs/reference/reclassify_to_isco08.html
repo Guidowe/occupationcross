@@ -90,6 +90,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Genre_analysis.html">Genre_analysis</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -125,6 +137,7 @@
   <span class='va'>variable</span>,
   <span class='va'>classif_origin</span>,
   add_skill <span class='op'>=</span> <span class='cn'>F</span>,
+  add_major_groups <span class='op'>=</span> <span class='cn'>F</span>,
   code_titles <span class='op'>=</span> <span class='cn'>F</span>,
   summary <span class='op'>=</span> <span class='cn'>F</span>
 <span class='op'>)</span></pre>
@@ -147,6 +160,10 @@
     <tr>
       <th>add_skill</th>
       <td><p>If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.</p></td>
+    </tr>
+    <tr>
+      <th>add_major_groups</th>
+      <td><p>If TRUE adds a new variable with the major groups of each occupation based on the 1-digit ISCo-08 classification structure. The major gruops structure has 9 levels, where level 1 means the highest skill level needed to perform the job and level 9 refers ti the lowest skill level.</p></td>
     </tr>
     <tr>
       <th>code_titles</th>

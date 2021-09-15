@@ -24,9 +24,7 @@ You can combine *occupationcross* with genre information available in households
 Install the development version of occupationcross from [GitHub](https://github.com/) with:
 
 ```{r,warning=FALSE,message=FALSE, results='hide'}
-# install.packages("devtools")
-devtools::install_github("Guidowe/occupationcross")
-devtools::load_all()
+#devtools::install_github("Guidowe/occupationcross")
 ```
 
 ## Comparing ISCO-08 major groups by genre in Argentina
@@ -35,6 +33,8 @@ Load first *occupationcross*, *tidyverse* and the package for the Argetinean hou
 ```{r,warning=FALSE,message=FALSE}
 library(occupationcross)
 library(tidyverse)
+library(ggthemes)
+library(scales)
 library(eph)
 ```
 
@@ -60,19 +60,30 @@ Now we can tabulate our new variable *"major_group"* using the EPH's variable fo
 
 ```{r,warning=FALSE,message=FALSE}
 
-eph.2018.01 %>% 
+genre_composition<- eph.2018.01 %>% 
   filter(ESTADO==1 & !is.na(major_group)) %>% 
   mutate(genre= case_when(CH04==1 ~ "Male", 
                           CH04==2 ~ "Female")) %>% 
-  group_by(genre, major_group) %>% 
+  group_by(major_group,genre) %>% 
   summarise (absolute=sum(PONDERA)) %>% 
-  ungroup() %>% 
+  group_by(major_group) %>% 
   mutate(percentage= absolute/sum(absolute)) %>% 
-  select(genre, major_group, percentage) %>% 
-  spread(genre, percentage) %>% 
-  mutate(Female=round(Female*100, 2), 
-         Male=round(Male*100, 2)) 
+  ungroup() %>% 
+  mutate(major_group = str_wrap(major_group,width = 25))
 
+
+
+ggplot(genre_composition,
+       aes(x = major_group,y = percentage,fill = genre))+
+  geom_col()+
+  labs(title = "Sex composition of employed persons by major groups",
+       subtitle = "Argentina - 2018")+
+  theme_minimal()+
+  theme(axis.title = element_blank(),
+        legend.title = element_blank())+
+  scale_fill_hc()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
 ```
 
 

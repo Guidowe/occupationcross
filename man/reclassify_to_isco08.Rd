@@ -9,6 +9,7 @@ reclassify_to_isco08(
   variable,
   classif_origin,
   add_skill = F,
+  add_major_groups = F,
   code_titles = F,
   summary = F
 )
@@ -21,6 +22,8 @@ reclassify_to_isco08(
 \item{classif_origin}{character vector specifying the Classification. "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico) are supported.}
 
 \item{add_skill}{If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.}
+
+\item{add_major_groups}{If TRUE adds a new variable with the major groups of each occupation based on the 1-digit ISCo-08 classification structure. The major gruops structure has 9 levels, where level 1 means the highest skill level needed to perform the job and level 9 refers ti the lowest skill level.}
 
 \item{code_titles}{If TRUE adds classification titles besides from codes.}
 
