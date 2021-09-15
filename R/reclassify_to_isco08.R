@@ -71,7 +71,6 @@ reclassify_to_isco08 <- function(base,
           levels= c("Low", "Medium", "High")))
 
 
-    return(base)
   }
 
   if (add_major_groups==T){
@@ -98,7 +97,6 @@ reclassify_to_isco08 <- function(base,
                       "8. Plant and Machine Operators and Assemblers",
                       "9. Elementary Occupations Low complexity occupations")))
 
-    return(base)
   }
 
   return(base)

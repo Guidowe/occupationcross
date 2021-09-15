@@ -10,22 +10,28 @@
 #' @examples
 #'
 #'
-#'
+#' toy_base_peru_isco08 <- reclassify_to_isco08(toy_base_peru,isco = p505,digits = 3)
 
 
 
-isco88_to_isco08_ndigit <- function(base,isco, digits, summary = FALSE){
+isco88_to_isco08_ndigit <- function(base,isco, digits, summary = FALSE, code_titles = FALSE){
 
   sample.isco <- function(df) {
     sample(df$ISCO08, size = 1)
   }
 
+base <- base %>%
+  dplyr::mutate(ISCO88 = as.character({{isco}}))
+
+
   cross_isco <- crosstable_isco08_isco88 %>%
     dplyr::mutate(
-      ISCO88 = as.integer(stringr::str_sub(string = `ISCO-88 code`,1, as.numeric(digits))),
-      ISCO08 = as.integer(stringr::str_sub(string = `ISCO 08 Code`,1, as.numeric(digits)))) %>%
-    dplyr::add_row(ISCO88 = 9999) %>%
+      ISCO88 = stringr::str_sub(string = `ISCO-88 code`,1, digits),
+      ISCO08 = stringr::str_sub(string = `ISCO 08 Code`,1, digits)) %>%
+    dplyr::add_row(ISCO88 = "9999") %>%
     dplyr::add_row(ISCO88 = NA) %>%
+    dplyr::add_row(ISCO88 = "0000",
+                   ISCO08 = "0000") %>%
     dplyr::select(ISCO88, ISCO08)
 
   nested.data.isco.cross <- cross_isco %>%
@@ -34,23 +40,34 @@ isco88_to_isco08_ndigit <- function(base,isco, digits, summary = FALSE){
     unique() %>%
     tidyr::nest()
 
-  base_join  <- base %>%
-    dplyr::rename(ISCO88 = isco) %>%
-    dplyr::mutate(ISCO88 = as.integer(ISCO88)) %>%
-    dplyr::left_join(nested.data.isco.cross,by = "ISCO88")
 
-  Codigos_error <-  base_join %>%
+  Codigos_error <-  base %>%
     dplyr::select(ISCO88) %>%
     dplyr::filter(!(ISCO88 %in% unique(cross_isco$ISCO88))) %>%
     unique()
 
-  assertthat::assert_that(
-    all(unique(base_join$ISCO88) %in% unique(cross_isco$ISCO88)),
-    msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
-                 list(Codigos_error$ISCO88)))
+  # assertthat::assert_that(
+  #   all(unique(base_join$ISCO88) %in% unique(cross_isco$ISCO88)),
+  #   msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
+  #                list(Codigos_error$ISCO88)))
 
-  set.seed(999971)
-  base_join_sample <- base_join %>%
+  if(length(Codigos_error$ISCO88)>=1){
+    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+                   list(Codigos_error$ISCO88)))
+
+    base  <- base %>%
+      dplyr::mutate(
+        ISCO88  = dplyr::case_when(
+          ISCO88 %in% Codigos_error$ISCO88 ~ "0000",
+          TRUE~ ISCO88))
+  }
+
+  base_join  <- base %>%
+    dplyr::left_join(nested.data.isco.cross,by = "ISCO88")
+
+    set.seed(999971)
+
+base_join_sample <- base_join %>%
     dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
     dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
     dplyr::mutate(ISCO.08 = as.numeric(ISCO.08))
