@@ -29,7 +29,7 @@ Install the development version of occupationcross from [GitHub](https://github.
 
 ## Comparing ISCO-08 major groups by genre in Argentina
 
-Load first *occupationcross*, *tidyverse* and the package for the Argetinean household survey *eph*
+Load first *occupationcross*, *tidyverse* and the package for the Argetinean households survey *eph*
 ```{r,warning=FALSE,message=FALSE}
 library(occupationcross)
 library(tidyverse)
@@ -47,7 +47,7 @@ eph.2018.01 <- get_microdata(year = 2018,
                organize_labels(., type='individual')
 ```
 
-Using ```reclassify_to_isco08``` and setting ```add_major_groups``` as TRUE, we obtain the reclassification for the EPH's variable  *"PP04D_COD"*, which is originally clasified trugh the national clasification system CNO2001.
+Using ```reclassify_to_isco08``` and setting ```add_major_groups``` as TRUE, we obtain the reclassification for the EPH's variable  *"PP04D_COD"*, which is originally clasified trough the national clasification system CNO2001.
 
 ```{r,warning=FALSE,message=FALSE}
 eph.2018.01 <- reclassify_to_isco08(eph.2018.01, 
@@ -56,7 +56,7 @@ eph.2018.01 <- reclassify_to_isco08(eph.2018.01,
                                     add_major_groups = TRUE)
 ```
 
-Now we can tabulate our new variable *"major_group"* using the EPH's variable for genre *"CH04"*
+Now we can tabulate our new variable *"major_group"* using the EPH's variable for genre *"CH04"* and plot the results
 
 ```{r,warning=FALSE,message=FALSE}
 
@@ -85,6 +85,52 @@ ggplot(genre_composition,
   scale_y_continuous(labels = scales::percent)+
   coord_flip()
 ```
+
+The graph above shows the sex composition of each major group. The major group 1 (Managers) is unevenly distributed since 68% of people working at these occupations are male. Occupations from major groups 8 and 7 - related to shop-floor industrial activities - are mostly done by men (87% and 90% respectivly).
+
+Let's compare these results to the occupation distribution by sex for the USA. We shall use de sample toy-database of the Current Population Survey, which is already already embedded in this package. First, use  ```reclassify_to_isco08``` in order to reclassify the variable *"OCC"* that contains the occupation clasification whit the *"Census2010"* system. Set ```add_major_groups``` as TRUE.
+
+
+```{r,warning=FALSE,message=FALSE}
+
+cps.2018 <-  reclassify_to_isco08(toy_base_ipums_cps_2018, 
+                                    OCC, 
+                                    classif_origin="Census2010", 
+                                    add_major_groups = TRUE)
+
+```
+
+
+Now we tabulate data and plot it.
+
+```{r,warning=FALSE,message=FALSE}
+genre_composition.usa<- cps.2018 %>% 
+  filter(LABFORCE==2 & !is.na(major_group)) %>% 
+  mutate(genre= case_when(SEX==1 ~ "Male", 
+                          SEX==2 ~ "Female")) %>% 
+  group_by(major_group,genre) %>% 
+  summarise (absolute=n()) %>% 
+  group_by(major_group) %>% 
+  mutate(percentage= absolute/sum(absolute)) %>% 
+  ungroup() %>% 
+  mutate(major_group = str_wrap(major_group,width = 25))
+
+
+ggplot(genre_composition.usa,
+       aes(x = major_group,y = percentage,fill = genre))+
+  geom_col()+
+  labs(title = "Sex composition of employed persons by major groups",
+       subtitle = "USA - 2018")+
+  theme_minimal()+
+  theme(axis.title = element_blank(),
+        legend.title = element_blank())+
+  scale_fill_hc()+
+  scale_y_continuous(labels = scales::percent)+
+  coord_flip()
+
+
+```
+
 
 
 
