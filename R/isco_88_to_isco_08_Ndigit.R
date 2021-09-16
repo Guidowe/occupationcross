@@ -3,14 +3,14 @@
 #' @param base Dataframe from any survey including a variable with ISCO 08 codes
 #' @param isco character vector containing ISCO 08 codes
 #' @param summary If TRUE provides other dataframe counting how many cases where asigned for each ISCO08 code to each ISCO88 code.
-#' @param digits Number of digits for ISCO codes ranging from 1 to 4
+#' @param digits Digits number (ranging from 1 to 4) for ISCO codes in input data
 #'
 #' @return The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes
 #' @export
 #' @examples
 #'
 #'
-#' toy_base_peru_isco08 <- reclassify_to_isco08(toy_base_peru,isco = p505,digits = 3)
+#' toy_base_peru_isco08 <- isco88_to_isco08_ndigit(toy_base_peru,isco = p505,digits = 3)
 
 
 

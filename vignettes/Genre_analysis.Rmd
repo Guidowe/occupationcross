@@ -27,7 +27,7 @@ Install the development version of occupationcross from [GitHub](https://github.
 #devtools::install_github("Guidowe/occupationcross")
 ```
 
-## Comparing ISCO-08 major groups by genre in Argentina
+## Comparing ISCO-08 major groups by genre in Argentina and the USA
 
 Load first *occupationcross*, *tidyverse* and the package for the Argetinean households survey *eph*
 ```{r,warning=FALSE,message=FALSE}
@@ -60,7 +60,7 @@ Now we can tabulate our new variable *"major_group"* using the EPH's variable fo
 
 ```{r,warning=FALSE,message=FALSE}
 
-genre_composition<- eph.2018.01 %>% 
+genre_composition.arg<- eph.2018.01 %>% 
   filter(ESTADO==1 & !is.na(major_group)) %>% 
   mutate(genre= case_when(CH04==1 ~ "Male", 
                           CH04==2 ~ "Female")) %>% 
@@ -73,7 +73,7 @@ genre_composition<- eph.2018.01 %>%
 
 
 
-ggplot(genre_composition,
+ggplot(genre_composition.arg,
        aes(x = major_group,y = percentage,fill = genre))+
   geom_col()+
   labs(title = "Sex composition of employed persons by major groups",
@@ -131,6 +131,9 @@ ggplot(genre_composition.usa,
 
 ```
 
+The graph shows that employment at major group 1 (Managers) is more equaly distributed, whereas women represent 53% of total employmen and men 47% (.... description)
+
+The package  *occupationcross* has thereby allowed us to carry out an international comparison based on different occupations classification systems. The same analysis that we have put forward for genre could be done using any of the socio-economic variables avaiable in datasets, such as age, region, incomes, etc.
 
 
 

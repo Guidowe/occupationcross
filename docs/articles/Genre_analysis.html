@@ -79,7 +79,7 @@
 
       
 
-      </header><script src="Genre_analysis_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="Genre_analysis_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Genre_analysis</h1>
@@ -102,10 +102,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#devtools::install_github("Guidowe/occupationcross")</span></code></pre></div>
 </div>
-<div id="comparing-isco-08-major-groups-by-genre-in-argentina" class="section level2">
+<div id="comparing-isco-08-major-groups-by-genre-in-argentina-and-the-usa" class="section level2">
 <h2 class="hasAnchor">
-<a href="#comparing-isco-08-major-groups-by-genre-in-argentina" class="anchor"></a>Comparing ISCO-08 major groups by genre in Argentina</h2>
-<p>Load first <em>occupationcross</em>, <em>tidyverse</em> and the package for the Argetinean household survey <em>eph</em></p>
+<a href="#comparing-isco-08-major-groups-by-genre-in-argentina-and-the-usa" class="anchor"></a>Comparing ISCO-08 major groups by genre in Argentina and the USA</h2>
+<p>Load first <em>occupationcross</em>, <em>tidyverse</em> and the package for the Argetinean households survey <em>eph</em></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross">occupationcross</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
@@ -118,16 +118,16 @@
                              trimester <span class="op">=</span> <span class="fl">1</span>, 
                              type<span class="op">=</span><span class="st">'individual'</span><span class="op">)</span> <span class="op">%&gt;%</span> 
                <span class="fu"><a href="https://rdrr.io/pkg/eph/man/organize_labels.html">organize_labels</a></span><span class="op">(</span><span class="va">.</span>, type<span class="op">=</span><span class="st">'individual'</span><span class="op">)</span></code></pre></div>
-<p>Using <code>reclassify_to_isco08</code> and setting <code>add_major_groups</code> as TRUE, we obtain the reclassification for the EPH’s variable <em>“PP04D_COD”</em>, which is originally clasified trugh the national clasification system CNO2001.</p>
+<p>Using <code>reclassify_to_isco08</code> and setting <code>add_major_groups</code> as TRUE, we obtain the reclassification for the EPH’s variable <em>“PP04D_COD”</em>, which is originally clasified trough the national clasification system CNO2001.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">eph.2018.01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">eph.2018.01</span>, 
                                     <span class="va">PP04D_COD</span>, 
                                     classif_origin<span class="op">=</span><span class="st">"CNO2001"</span>, 
                                     add_major_groups <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>Now we can tabulate our new variable <em>“major_group”</em> using the EPH’s variable for genre <em>“CH04”</em></p>
+<p>Now we can tabulate our new variable <em>“major_group”</em> using the EPH’s variable for genre <em>“CH04”</em> and plot the results</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">genre_composition</span><span class="op">&lt;-</span> <span class="va">eph.2018.01</span> <span class="op">%&gt;%</span> 
+<span class="va">genre_composition.arg</span><span class="op">&lt;-</span> <span class="va">eph.2018.01</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">ESTADO</span><span class="op">==</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">major_group</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>genre<span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span><span class="va">CH04</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="st">"Male"</span>, 
                           <span class="va">CH04</span><span class="op">==</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -140,7 +140,7 @@
 
 
 
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">genre_composition</span>,
+<span class="fu">ggplot</span><span class="op">(</span><span class="va">genre_composition.arg</span>,
        <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">major_group</span>,y <span class="op">=</span> <span class="va">percentage</span>,fill <span class="op">=</span> <span class="va">genre</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sex composition of employed persons by major groups"</span>,
@@ -152,6 +152,42 @@
   <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span><span class="op">+</span>
   <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Genre_analysis_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>The graph above shows the sex composition of each major group. The major group 1 (Managers) is unevenly distributed since 68% of people working at these occupations are male. Occupations from major groups 8 and 7 - related to shop-floor industrial activities - are mostly done by men (87% and 90% respectivly).</p>
+<p>Let’s compare these results to the occupation distribution by sex for the USA. We shall use de sample toy-database of the Current Population Survey, which is already already embedded in this package. First, use <code>reclassify_to_isco08</code> in order to reclassify the variable <em>“OCC”</em> that contains the occupation clasification whit the <em>“Census2010”</em> system. Set <code>add_major_groups</code> as TRUE.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">cps.2018</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">toy_base_ipums_cps_2018</span>, 
+                                    <span class="va">OCC</span>, 
+                                    classif_origin<span class="op">=</span><span class="st">"Census2010"</span>, 
+                                    add_major_groups <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Now we tabulate data and plot it.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">genre_composition.usa</span><span class="op">&lt;-</span> <span class="va">cps.2018</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">LABFORCE</span><span class="op">==</span><span class="fl">2</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">major_group</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>genre<span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span><span class="va">SEX</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="st">"Male"</span>, 
+                          <span class="va">SEX</span><span class="op">==</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">major_group</span>,<span class="va">genre</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">group_by</span><span class="op">(</span><span class="va">major_group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>major_group <span class="op">=</span> <span class="fu">str_wrap</span><span class="op">(</span><span class="va">major_group</span>,width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span>
+
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="va">genre_composition.usa</span>,
+       <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">major_group</span>,y <span class="op">=</span> <span class="va">percentage</span>,fill <span class="op">=</span> <span class="va">genre</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Sex composition of employed persons by major groups"</span>,
+       subtitle <span class="op">=</span> <span class="st">"USA - 2018"</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">theme</span><span class="op">(</span>axis.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,
+        legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggthemes/man/scale_hc.html">scale_fill_hc</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span><span class="op">+</span>
+  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="Genre_analysis_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p>The graph shows that employment at major group 1 (Managers) is more equaly distributed, whereas women represent 53% of total employmen and men 47% (…. description)</p>
+<p>The package <em>occupationcross</em> has thereby allowed us to carry out an international comparison based on different occupations classification systems. The same analysis that we have put forward for genre could be done using any of the socio-economic variables avaiable in datasets, such as age, region, incomes, etc.</p>
 </div>
   </div>
 
