@@ -2,7 +2,7 @@
 #'
 #' @param base Dataframe including a variable with occupational codes contained in "available_classifications"
 #' @param variable  variable containing occupational codes
-#' @param classif_origin character vector specifying the Classification. "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico) are supported.
+#' @param classif_origin character vector specifying the Classification system used as input. The supported clasification systemas are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88_4digits" and "ISCO88_3digits".
 #' @param add_skill If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.
 #' @param add_major_groups If TRUE adds a new variable with the major groups of each occupation based on the 1-digit ISCo-08 classification structure. The major gruops structure has 9 levels, where level 1 means the highest skill level needed to perform the job and level 9 refers ti the lowest skill level.
 #' @param code_titles If TRUE adds classification titles besides from codes.
