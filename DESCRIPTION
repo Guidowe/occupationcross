@@ -12,7 +12,11 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    scales,
+    eph,
+    ggthemes,
+    tidyverse
 Imports: 
     magrittr,
     dplyr,
