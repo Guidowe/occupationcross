@@ -92,8 +92,7 @@ Let's compare these results to the occupations distribution by sex in the USA. W
 
 ```{r,warning=FALSE,message=FALSE}
 
-load("~/GitHub/occupationcross/data-raw/bases/cps2018_occ_genre.rda")
-
+load("../data-raw/bases/cps2018_occ_genre.rda")
 ```
 
 

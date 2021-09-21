@@ -2,11 +2,14 @@ library(tidyverse)
 ####bases de datos#####
 available_crosswalks <- tribble(
   ~from        ,   ~to       , ~detail,
-  "cno 2001"   ,  "isco 08"  ,"crosswalk only available to isco digits 1 and 2",
-  "sinco 2011" ,  "isco 08"  ,"complete crosswalk",
-  "isco 08"    ,  "isco 88"  ,"complete crosswalk",
-  "census 2010",  "soc 2010","complete crosswalk",
-  "census 2010",  "isco 08"  ,"complete crosswalk",
+  "SINCO2011"  ,  "ISCO08"  ,"complete crosswalk",
+  "Census2010" ,  "ISCO08"  ,"complete crosswalk",
+  "CNO2001"    ,  "ISCO08"  ,"crosswalk only available to isco digits 1 and 2",
+  "CNO2017"    ,  "ISCO08"  ,"crosswalk only available to isco digits 1 and 2",
+  "ISCO88"     ,  "ISCO08"  ,"complete crosswalk",
+  "ISCO88_3digits",  "ISCO08"  ,"crosswalk designed for databases with ISCO88 containing only 3 digits",
+  "ISCO08"     ,  "ISCO88"  ,"complete crosswalk",
+  "Census2010",  "SOC2010","complete crosswalk",
 
 )
 
@@ -14,18 +17,20 @@ available_crosswalks <- tribble(
 
 available_classifications <- data.frame(
   classification =  c(
-    "isco 08",
-    "isco 88",
-    "sinco 2011",
-    "cno 2001",
-    "census 2010",
-    "soc 2010"
+    "ISCO08",
+    "ISCO88",
+    "SINCO2011",
+    "CNO2001",
+    "CNO2017",
+    "Census2010",
+    "SOC2010"
     ),
   classification_fullname = c(
     "International Standard Classification of Occupations 08",
     "International Standard Classification of Occupations 88",
     "Sistema Nacional de Clasificación de Ocupaciones 2011",
     "Clasificador Nacional de Ocupaciones 2001",
+    "Clasificador Nacional de Ocupaciones 2017",
     "2010 Census Occupational Classification",
     "2010 Standard Occupational Classification"
     ),
@@ -33,6 +38,7 @@ available_classifications <- data.frame(
     "International",
     "International",
     "Mexico",
+    "Argentina",
     "Argentina",
     "United States",
     "United States"

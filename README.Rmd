@@ -17,10 +17,21 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of occupationcross is to facilitate the application of crosswalks between occupational classifiers from different parts of the world.
 
-## Installation
+## Description  
+**Occupationcross** is designed to facilitate the application of crosswalks between occupational classifiers from different parts of the world.    
+ 
+The main function of this package is **`reclassify_to_isco08()`**. Basically, this function takes as an imput a database containing a variable associated with a national occupational classifier and performs a reclassification to [International Standard Classification of Occupations 08](https://www.ilo.org/public/english/bureau/stat/isco/isco08/) developed by International Labour Organization.         
 
+
+In addition, the package also has dataframes specifying the available classifications and crosswalks, as well as the tables used to make the crosswalks.
+
+- **`available_classifications`**
+- **`available_crosswalks`**
+- **`crosstable_sinco2011_isco08`**
+- **`crosstable_cno2001_isco08`**
+
+## Instalation   
 Install the development version of occupationcross from [GitHub](https://github.com/) with:
 
 ``` r
@@ -53,17 +64,19 @@ toy_base_mexico
 
 Applying the `reclassify_to_isco08()` function we can obtain a reclassification of each case of our database into International Standard Classification of Occupations - 08 (ISCO-08) codes.     
  - The `classif_origin` is used to specify which classification is used in the original database.    
+  - The `add_major_groups` parameter allows you to add a new variable identifying ISCO-08 major group.   
  - The `add_skill` parameter allows you to add a new variable identifying skill level of each occupation according to ISCO-08 classification of major groups.    
  - The `code_titles` parameter allows you to get the occupation names both from the origin classification and isco 08 classification
 ```{r,warning=FALSE,message=FALSE}
 crossed_base <- reclassify_to_isco08(base = toy_base_mexico,
                                      variable = p3,
                                      classif_origin = "SINCO2011",
+                                     add_major_groups = T,
                                      add_skill = T,
                                      code_titles = T)
 
 
 crossed_base %>% 
-  select(p3,ISCO.08,label.destination,skill_level)
+  select(p3,ISCO.08,major_group)
 ```
 

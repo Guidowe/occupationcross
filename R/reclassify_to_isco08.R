@@ -18,7 +18,6 @@
 #' USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC, classif_origin="Census2010")
 #' MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
 #' ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina, PP04D_COD, classif_origin="CNO2001")
-#' PER_database_with_isco08 <- reclassify_to_isco08(toy_base_peru, p505, classif_origin="ISCO88_3digits")
 
 reclassify_to_isco08 <- function(base,
                                  variable,
@@ -28,7 +27,7 @@ reclassify_to_isco08 <- function(base,
                                  code_titles = F,
                                  summary = F){
 
-  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","SINCO2011", "ISCO88_4digits", "ISCO88_3digits"),
+  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","SINCO2011", "ISCO88", "ISCO88_3digits"),
                        msg = paste0 ("'",classif_origin, "' is not any of the classifications available"))
 
   if (classif_origin=="SINCO2011"){
@@ -61,7 +60,7 @@ reclassify_to_isco08 <- function(base,
                                   summary = summary)
   }
 
-  if (classif_origin=="ISCO88_4digits"){
+  if (classif_origin=="ISCO88"){
     base  <- isco88_to_isco08_ndigit(base = base,
                                   isco = {{variable}},
                                   digits= 4,

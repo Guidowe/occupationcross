@@ -86,10 +86,22 @@
 <a href="#occupationcross" class="anchor"></a>occupationcross</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>The goal of occupationcross is to facilitate the application of crosswalks between occupational classifiers from different parts of the world.</p>
-<div id="installation" class="section level2">
+<div id="description" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<a href="#description" class="anchor"></a>Description</h2>
+<p><strong>Occupationcross</strong> is designed to facilitate the application of crosswalks between occupational classifiers from different parts of the world.</p>
+<p>The main function of this package is <strong><code><a href="reference/reclassify_to_isco08.html">reclassify_to_isco08()</a></code></strong>. Basically, this function takes as an imput a database containing a variable associated with a national occupational classifier and performs a reclassification to <a href="https://www.ilo.org/public/english/bureau/stat/isco/isco08/">International Standard Classification of Occupations 08</a> developed by International Labour Organization.</p>
+<p>In addition, the package also has dataframes specifying the available classifications and crosswalks, as well as the tables used to make the crosswalks.</p>
+<ul>
+<li><strong><code>available_classifications</code></strong></li>
+<li><strong><code>available_crosswalks</code></strong></li>
+<li><strong><code>crosstable_sinco2011_isco08</code></strong></li>
+<li><strong><code>crosstable_cno2001_isco08</code></strong></li>
+</ul>
+</div>
+<div id="instalation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#instalation" class="anchor"></a>Instalation</h2>
 <p>Install the development version of occupationcross from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
@@ -107,29 +119,34 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">occupationcross</span><span class="fu">::</span><span class="va"><a href="reference/available_classifications.html">available_classifications</a></span>
 <span class="co">#&gt;   classification                                 classification_fullname</span>
-<span class="co">#&gt; 1        isco 08 International Standard Classification of Occupations 08</span>
-<span class="co">#&gt; 2        isco 88 International Standard Classification of Occupations 88</span>
-<span class="co">#&gt; 3     sinco 2011   Sistema Nacional de Clasificación de Ocupaciones 2011</span>
-<span class="co">#&gt; 4       cno 2001               Clasificador Nacional de Ocupaciones 2001</span>
-<span class="co">#&gt; 5    census 2010                 2010 Census Occupational Classification</span>
-<span class="co">#&gt; 6       soc 2010               2010 Standard Occupational Classification</span>
+<span class="co">#&gt; 1         ISCO08 International Standard Classification of Occupations 08</span>
+<span class="co">#&gt; 2         ISCO88 International Standard Classification of Occupations 88</span>
+<span class="co">#&gt; 3      SINCO2011   Sistema Nacional de Clasificación de Ocupaciones 2011</span>
+<span class="co">#&gt; 4        CNO2001               Clasificador Nacional de Ocupaciones 2001</span>
+<span class="co">#&gt; 5        CNO2017               Clasificador Nacional de Ocupaciones 2017</span>
+<span class="co">#&gt; 6     Census2010                 2010 Census Occupational Classification</span>
+<span class="co">#&gt; 7        SOC2010               2010 Standard Occupational Classification</span>
 <span class="co">#&gt;         country</span>
 <span class="co">#&gt; 1 International</span>
 <span class="co">#&gt; 2 International</span>
 <span class="co">#&gt; 3        Mexico</span>
 <span class="co">#&gt; 4     Argentina</span>
-<span class="co">#&gt; 5 United States</span>
-<span class="co">#&gt; 6 United States</span></code></pre></div>
+<span class="co">#&gt; 5     Argentina</span>
+<span class="co">#&gt; 6 United States</span>
+<span class="co">#&gt; 7 United States</span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">occupationcross</span><span class="fu">::</span><span class="va">available_crosswalks</span>
-<span class="co">#&gt; # A tibble: 5 x 3</span>
-<span class="co">#&gt;   from        to       detail                                         </span>
-<span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;                                          </span>
-<span class="co">#&gt; 1 cno 2001    isco 08  crosswalk only available to isco digits 1 and 2</span>
-<span class="co">#&gt; 2 sinco 2011  isco 08  complete crosswalk                             </span>
-<span class="co">#&gt; 3 isco 08     isco 88  complete crosswalk                             </span>
-<span class="co">#&gt; 4 census 2010 soc 2010 complete crosswalk                             </span>
-<span class="co">#&gt; 5 census 2010 isco 08  complete crosswalk</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 8 x 3</span>
+<span class="co">#&gt;   from          to     detail                                                   </span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;                                                    </span>
+<span class="co">#&gt; 1 SINCO2011     ISCO08 complete crosswalk                                       </span>
+<span class="co">#&gt; 2 Census2010    ISCO08 complete crosswalk                                       </span>
+<span class="co">#&gt; 3 CNO2001       ISCO08 crosswalk only available to isco digits 1 and 2          </span>
+<span class="co">#&gt; 4 CNO2017       ISCO08 crosswalk only available to isco digits 1 and 2          </span>
+<span class="co">#&gt; 5 ISCO88        ISCO08 complete crosswalk                                       </span>
+<span class="co">#&gt; 6 ISCO88_3digi~ ISCO08 crosswalk designed for databases with ISCO88 containing ~</span>
+<span class="co">#&gt; 7 ISCO08        ISCO88 complete crosswalk                                       </span>
+<span class="co">#&gt; 8 Census2010    SOC20~ complete crosswalk</span></code></pre></div>
 <p>Let´s use a sample database from a Mexico´s household survey (Encuesta Nacional de Ocupación y Empleo) already embedded in this package. This database contains a variable named <em>“p3”</em> corresponding to SINCO 2011 (Sistema Nacional de Clasificación de Ocupaciones - 2011) occupational codes</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">toy_base_mexico</span>
@@ -151,6 +168,8 @@
 <ul>
 <li>The <code>classif_origin</code> is used to specify which classification is used in the original database.<br>
 </li>
+<li>The <code>add_major_groups</code> parameter allows you to add a new variable identifying ISCO-08 major group.<br>
+</li>
 <li>The <code>add_skill</code> parameter allows you to add a new variable identifying skill level of each occupation according to ISCO-08 classification of major groups.<br>
 </li>
 <li>The <code>code_titles</code> parameter allows you to get the occupation names both from the origin classification and isco 08 classification</li>
@@ -159,25 +178,26 @@
 <code class="sourceCode R"><span class="va">crossed_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">toy_base_mexico</span>,
                                      variable <span class="op">=</span> <span class="va">p3</span>,
                                      classif_origin <span class="op">=</span> <span class="st">"SINCO2011"</span>,
+                                     add_major_groups <span class="op">=</span> <span class="cn">T</span>,
                                      add_skill <span class="op">=</span> <span class="cn">T</span>,
                                      code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
 
 <span class="va">crossed_base</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">p3</span>,<span class="va">ISCO.08</span>,<span class="va">label.destination</span>,<span class="va">skill_level</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 200 x 4</span>
-<span class="co">#&gt;       p3 ISCO.08 label.destination                                   skill_level</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;                                               &lt;fct&gt;      </span>
-<span class="co">#&gt;  1  7121 7112    Albañiles                                           Medium     </span>
-<span class="co">#&gt;  2  5116 5131    Camareros de mesas                                  Medium     </span>
-<span class="co">#&gt;  3  9611 9111    Limpiadores y asistentes domésticos                 Low        </span>
-<span class="co">#&gt;  4    NA 0000    No tiene correspondencia                            &lt;NA&gt;       </span>
-<span class="co">#&gt;  5    NA 0000    No tiene correspondencia                            &lt;NA&gt;       </span>
-<span class="co">#&gt;  6    NA 0000    No tiene correspondencia                            &lt;NA&gt;       </span>
-<span class="co">#&gt;  7    NA 0000    No tiene correspondencia                            &lt;NA&gt;       </span>
-<span class="co">#&gt;  8    NA 0000    No tiene correspondencia                            &lt;NA&gt;       </span>
-<span class="co">#&gt;  9  6111 6111    Agricultores y trabajadores calificados de cultivo~ Medium     </span>
-<span class="co">#&gt; 10  4111 5221    Comerciantes de tiendas                             Medium     </span>
+  <span class="fu">select</span><span class="op">(</span><span class="va">p3</span>,<span class="va">ISCO.08</span>,<span class="va">major_group</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 200 x 3</span>
+<span class="co">#&gt;       p3 ISCO.08 major_group                                          </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;fct&gt;                                                </span>
+<span class="co">#&gt;  1  7121 7112    7. Craft and Related Trades Workers                  </span>
+<span class="co">#&gt;  2  5116 5131    5. Services and Sales Workers                        </span>
+<span class="co">#&gt;  3  9611 9111    9. Elementary Occupations                            </span>
+<span class="co">#&gt;  4    NA 0000    &lt;NA&gt;                                                 </span>
+<span class="co">#&gt;  5    NA 0000    &lt;NA&gt;                                                 </span>
+<span class="co">#&gt;  6    NA 0000    &lt;NA&gt;                                                 </span>
+<span class="co">#&gt;  7    NA 0000    &lt;NA&gt;                                                 </span>
+<span class="co">#&gt;  8    NA 0000    &lt;NA&gt;                                                 </span>
+<span class="co">#&gt;  9  6111 6111    6. Skilled Agricultural, Forestry and Fishery Workers</span>
+<span class="co">#&gt; 10  4111 5221    5. Services and Sales Workers                        </span>
 <span class="co">#&gt; # ... with 190 more rows</span></code></pre></div>
 </div>
 </div>
