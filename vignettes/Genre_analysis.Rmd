@@ -38,7 +38,7 @@ library(scales)
 library(eph)
 ```
 
-We get the dataframe from the individual version of the survey for the 1st quarter 2018 and organize its labels using the *eph* package.
+We get the dataframe from the individual version of the EPH survey (1st quarter 2018) and organize its labels using the *eph* package.
 
 ```{r,warning=FALSE,message=FALSE}
 eph.2018.01.original <- get_microdata(year = 2018, 
@@ -97,7 +97,7 @@ load("~/GitHub/occupationcross/data-raw/bases/cps2018_occ_genre.rda")
 ```
 
 
-Once the dataframe is loaded, we can use  ```reclassify_to_isco08``` in order to reclassify the variable *"OCC"* that contains the occupation clasification whit the *"Census2010"* system. We also set ```add_major_groups``` as TRUE.
+Once the dataframe is loaded, we can use  ```reclassify_to_isco08``` in order to reclassify the variable *"OCC"* that contains the occupation clasification with the *"Census2010"* system. We also set ```add_major_groups``` as TRUE.
 
 
 ```{r,warning=FALSE,message=FALSE}
