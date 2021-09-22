@@ -24,7 +24,7 @@ Occupations skill level
 base_uruguay_skill <- skill_level(toy_base_uruguay, f71_2, classif_origin="ISCO08")
 base_mexico_skill <- skill_level(toy_base_mexico, p3, classif_origin = "SINCO2011")
 base_eph_skill <- skill_level(toy_base_eph_argentina, PP04D_COD, classif_origin = "CNO2001")
-base_cps_skill <- skill_level(toy_base_ipums_cps_2018, OCC, classif_origin =  "Census2010")
+base_cps_skill <- skill_level(toy_base_ipums_cps_2018, OCC2010, classif_origin =  "Census2010")
 
 
 }

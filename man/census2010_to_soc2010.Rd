@@ -21,6 +21,6 @@ Cross Census 2010 to SOC 2010
 }
 \examples{
 
-base_crossed <- census2010_to_soc2010(toy_base_ipums_cps_2018,census = "OCC",code_titles = FALSE)
+base_crossed <- census2010_to_soc2010(toy_base_ipums_cps_2018,census = "OCC2010",code_titles = FALSE)
 
 }

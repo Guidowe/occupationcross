@@ -55,7 +55,8 @@ Using ```reclassify_to_isco08``` and setting ```add_major_groups``` as TRUE, we 
 eph.2018.01 <- reclassify_to_isco08(eph.2018.01.original, 
                                     PP04D_COD, 
                                     classif_origin="CNO2001", 
-                                    add_major_groups = TRUE)
+                                    add_major_groups = TRUE,
+                                    add_skill = TRUE)
 ```
 
 Now we can tabulate our new variable *"major_group"* using the EPH's variable for genre *"CH04"* and plot the results
@@ -88,23 +89,24 @@ ggplot(genre_composition.arg,
 
 The graph above shows the sex composition of each major group. The major group 1 (Managers) is unevenly distributed since 68% of people working at these occupations are men. This is the case also for occupations from major groups 8 and 7, related to shop-floor industrial activities, which are mostly done by men (87% and 90% respectivly).
 
-Let's compare these results to the occupations distribution by sex in the USA. We shall use the IPUMS's version of the Current Population Survey 2018. If you want to reproduce this example, you should ask for the data extract of CPS at https://cps.ipums.org/ 
+Let's compare these results to the occupations distribution by sex in the United States of America. We shall use the IPUMS's version of Annual Social and Economic Supllement from  the Current Population Survey 2018. If you want to reproduce this example, you should ask for the data extract of CPS at https://cps.ipums.org/ 
 
 ```{r,warning=FALSE,message=FALSE}
 
-load("../data-raw/bases/cps2018_occ_genre.rda")
+cps_asec_2018 <- readRDS("../data-raw/bases/Base_USA2018.RDS")
 ```
 
 
-Once the dataframe is loaded, we can use  ```reclassify_to_isco08``` in order to reclassify the variable *"OCC"* that contains the occupation clasification with the *"Census2010"* system. We also set ```add_major_groups``` as TRUE.
+Once the dataframe is loaded, we can use  ```reclassify_to_isco08``` in order to reclassify the variable *"OCC2010"* that contains the occupation clasification with the *"Census2010"* system. We also set ```add_major_groups``` as TRUE.
 
 
 ```{r,warning=FALSE,message=FALSE}
 
-cps.2018 <-  reclassify_to_isco08(cps2018_occ_genre, 
-                                    OCC, 
-                                    classif_origin="Census2010", 
-                                    add_major_groups = TRUE)
+cps_asec_2018 <-  reclassify_to_isco08(cps_asec_2018, 
+                                  OCC2010, 
+                                  classif_origin="Census2010", 
+                                  add_major_groups = TRUE,
+                                  add_skill = TRUE)
 
 ```
 
@@ -112,12 +114,12 @@ cps.2018 <-  reclassify_to_isco08(cps2018_occ_genre,
 Now we tabulate the data and plot it.
 
 ```{r,warning=FALSE,message=FALSE}
-genre_composition.usa<- cps.2018 %>% 
+genre_composition.usa<- cps_asec_2018 %>% 
   filter(EMPSTAT==10 & !is.na(major_group)) %>% 
   mutate(genre= case_when(SEX==1 ~ "Male", 
                           SEX==2 ~ "Female")) %>% 
   group_by(major_group,genre) %>% 
-  summarise (absolute=n()) %>% 
+  summarise (absolute=sum(ASECWT,na.rm = T)) %>% 
   group_by(major_group) %>% 
   mutate(percentage= absolute/sum(absolute)) %>% 
   ungroup() %>% 
@@ -139,24 +141,11 @@ ggplot(genre_composition.usa,
 
 ```
 
-The graph shows that occupations are unequaly distributed at major group 1 (Managers), whereas women represent 41% of total employmen and men 59%. The distribution is quite even for major groups 2 and 3. while women are the majority at major groups 4 and 5. In major groups 6 to 9, men are the majority
+The graph shows that occupations are unequaly distributed at major group 1 (Managers), whereas women represent 41% of total employmen and men 59%. The distribution is quite even for major groups 2 and 3. while women are the majority at major groups 4 and 5. In major groups 6 to 9, men are the majority.   
 
 ### Skill level analysis
 
-Let's analyse the sex distribution of skill levels based on the 9 ISCO major groups. The param ```add_skill``` in the ```reclassify_to_isco08``` function will get the 3-tiers variable for skill level, indicating whether the job is high, medium or low skilled. First we get the variable *skill_level* for the two datasets we are using.
-
-
-```{r,warning=FALSE,message=FALSE}
-eph.2018.01 <- reclassify_to_isco08(eph.2018.01.original, 
-                                    PP04D_COD, 
-                                    classif_origin="CNO2001", 
-                                    add_skill = TRUE)
-                                    
-cps.2018 <-  reclassify_to_isco08(cps2018_occ_genre, 
-                                    OCC, 
-                                    classif_origin="Census2010", 
-                                    add_skill = TRUE)
-```
+Let's analyse the sex distribution of skill levels based on the 9 ISCO major groups. Remember that we added before the param ```add_skill``` in the ```reclassify_to_isco08()``` function to get the 3-tiers variable for skill level, indicating whether the job is high, medium or low skilled.    
 
 Now we can tabulate the data and plot it to compare
 
@@ -169,20 +158,16 @@ genre_composition.skill.arg<- eph.2018.01 %>%
   group_by(skill_level,genre) %>% 
   summarise (absolute=sum(PONDERA)) %>% 
   group_by(skill_level) %>% 
-  mutate(percentage= absolute/sum(absolute)) %>% 
-  ungroup() %>% 
-  mutate(skill_level = str_wrap(skill_level,width = 25))
+  mutate(percentage= absolute/sum(absolute)) 
 
-genre_composition.skill.usa<- cps.2018 %>% 
+genre_composition.skill.usa<- cps_asec_2018 %>% 
   filter(EMPSTAT==10 & !is.na(skill_level)) %>% 
   mutate(genre= case_when(SEX==1 ~ "Male", 
                           SEX==2 ~ "Female")) %>% 
   group_by(skill_level,genre) %>% 
-  summarise (absolute=n()) %>% 
+  summarise (absolute=sum(ASECWT,na.rm = T)) %>% 
   group_by(skill_level) %>% 
-  mutate(percentage= absolute/sum(absolute)) %>% 
-  ungroup() %>% 
-  mutate(skill_level = str_wrap(skill_level,width = 25))
+  mutate(percentage= absolute/sum(absolute)) 
 
 genre_composition.skill <- bind_rows("Argentina" = genre_composition.skill.arg, "USA"= genre_composition.skill.usa, .id="country")
 
@@ -200,8 +185,10 @@ ggplot(genre_composition.skill,
 
 
 ```
+    
+In Argentina, 56% of Low skilled occupations were performed by women in 2018, whereas in USA only 30% of this type of occupations were performed by women.
 
-In Argentina, High complexity occupations are perfomed 50-50 percent among women and men. In USA women are the majority at that level with 52%.
+In Argentina, High complexity occupations were perfomed 50-50 percent among women and men. In USA, women performed 48% of high complexity occupations. 
 
 The package  *occupationcross* has thereby allowed us to carry out an international comparison based on different occupations classification systems. The same analysis that we have put forward for genre could be done using any of the socio-economic variables avaiable in datasets, such as age, region, incomes, etc.
 

@@ -3,7 +3,7 @@ title: "WorkFlow Example of occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{WorkFlow Example of occupationcross}
-  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -52,7 +52,7 @@ mexico_base <- readRDS("../data-raw/bases/mexico_T31019.RDS")
 Our function requieres three basic arguments :
 
 - `base`: Dataframe containing a variable corresponding to any occupational classification detailed in `available_classifications`.  
-- `variable`: variable containing occupational codes. In our case, they are named *OCC* in CPS-USA database, and *P3* in ENOE - Mexico database.  
+- `variable`: variable containing occupational codes. In our case, they are named *OCC2010* in CPS-USA database, and *P3* in ENOE - Mexico database.  
 - `classif_origin`: character indicating which classification is used in original database. Look at `available_classifications`.   
 - `add_skill`: logical indicating if you want other variable identifying skill level ("Low","Medium" or "High") according to ISCO-08 codes.
 - `code_titles`: logical indicating if you want occupational titles besides codes.
@@ -64,7 +64,7 @@ mexico_base_crossed <- reclassify_to_isco08(base = mexico_base,
                                             code_titles = T)
 
 usa_base_crossed <- reclassify_to_isco08(base = usa_cps_base,
-                                             variable = OCC,
+                                             variable = OCC2010,
                                              classif_origin = "Census2010",
                                              add_skill = T,
                                              code_titles = T)
@@ -72,9 +72,10 @@ usa_base_crossed <- reclassify_to_isco08(base = usa_cps_base,
 ```
 
 ### Comparing skill levels between countries:
-Based on this reclassification to ISCO-08 we can now  compare the distribution of skill levels of occupations among both countries.      
- - Nearly 50% of U.S. occupations are classified at the high-skill level.   
- - Only 22% of Mexico occupations are classified at the high-skill level 
+Based on this reclassification to ISCO-08 we can now  compare the distribution of skill levels of occupations among both countries ^[Note that for simplicity we are not using here survey weights. A more accurate analysis should include them].
+
+ - 47% of U.S. occupations are classified at the high-skill level.   
+ - Only 22% of Mexico occupations are classified at the high-skill level   
 
 ```{r}
 prop.table(table(usa_base_crossed$skill_level))

@@ -15,7 +15,7 @@
 #'
 #'
 #'
-#' USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC, classif_origin="Census2010")
+#' USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC2010, classif_origin="Census2010")
 #' MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
 #' ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina, PP04D_COD, classif_origin="CNO2001")
 

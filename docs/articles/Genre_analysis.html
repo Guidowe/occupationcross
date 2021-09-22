@@ -126,7 +126,8 @@
 <code class="sourceCode R"><span class="va">eph.2018.01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">eph.2018.01.original</span>, 
                                     <span class="va">PP04D_COD</span>, 
                                     classif_origin<span class="op">=</span><span class="st">"CNO2001"</span>, 
-                                    add_major_groups <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+                                    add_major_groups <span class="op">=</span> <span class="cn">TRUE</span>,
+                                    add_skill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Now we can tabulate our new variable <em>“major_group”</em> using the EPH’s variable for genre <em>“CH04”</em> and plot the results</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
@@ -154,25 +155,26 @@
   <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Genre_analysis_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>The graph above shows the sex composition of each major group. The major group 1 (Managers) is unevenly distributed since 68% of people working at these occupations are men. This is the case also for occupations from major groups 8 and 7, related to shop-floor industrial activities, which are mostly done by men (87% and 90% respectivly).</p>
-<p>Let’s compare these results to the occupations distribution by sex in the USA. We shall use the IPUMS’s version of the Current Population Survey 2018. If you want to reproduce this example, you should ask for the data extract of CPS at <a href="https://cps.ipums.org/" class="uri">https://cps.ipums.org/</a></p>
+<p>Let’s compare these results to the occupations distribution by sex in the United States of America. We shall use the IPUMS’s version of Annual Social and Economic Supllement from the Current Population Survey 2018. If you want to reproduce this example, you should ask for the data extract of CPS at <a href="https://cps.ipums.org/" class="uri">https://cps.ipums.org/</a></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"../data-raw/bases/cps2018_occ_genre.rda"</span><span class="op">)</span></code></pre></div>
-<p>Once the dataframe is loaded, we can use <code>reclassify_to_isco08</code> in order to reclassify the variable <em>“OCC”</em> that contains the occupation clasification with the <em>“Census2010”</em> system. We also set <code>add_major_groups</code> as TRUE.</p>
+<span class="va">cps_asec_2018</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/Base_USA2018.RDS"</span><span class="op">)</span></code></pre></div>
+<p>Once the dataframe is loaded, we can use <code>reclassify_to_isco08</code> in order to reclassify the variable <em>“OCC2010”</em> that contains the occupation clasification with the <em>“Census2010”</em> system. We also set <code>add_major_groups</code> as TRUE.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">cps.2018</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">cps2018_occ_genre</span>, 
-                                    <span class="va">OCC</span>, 
-                                    classif_origin<span class="op">=</span><span class="st">"Census2010"</span>, 
-                                    add_major_groups <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="va">cps_asec_2018</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">cps_asec_2018</span>, 
+                                  <span class="va">OCC2010</span>, 
+                                  classif_origin<span class="op">=</span><span class="st">"Census2010"</span>, 
+                                  add_major_groups <span class="op">=</span> <span class="cn">TRUE</span>,
+                                  add_skill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>Now we tabulate the data and plot it.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">genre_composition.usa</span><span class="op">&lt;-</span> <span class="va">cps.2018</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">genre_composition.usa</span><span class="op">&lt;-</span> <span class="va">cps_asec_2018</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">EMPSTAT</span><span class="op">==</span><span class="fl">10</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">major_group</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>genre<span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span><span class="va">SEX</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="st">"Male"</span>, 
                           <span class="va">SEX</span><span class="op">==</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">major_group</span>,<span class="va">genre</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ASECWT</span>,na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">major_group</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -191,24 +193,14 @@
   <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span><span class="op">+</span>
   <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Genre_analysis_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<p>The graph shows that occupations are unequaly distributed at major group 1 (Managers), whereas women represent 41% of total employmen and men 59%. The distribution is quite even for major groups 2 and 3. while women are the majority at major groups 4 and 5. In major groups 6 to 9, men are the majority</p>
+<p>The graph shows that occupations are unequaly distributed at major group 1 (Managers), whereas women represent 41% of total employmen and men 59%. The distribution is quite even for major groups 2 and 3. while women are the majority at major groups 4 and 5. In major groups 6 to 9, men are the majority.</p>
 </div>
 <div id="skill-level-analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#skill-level-analysis" class="anchor"></a>Skill level analysis</h3>
-<p>Let’s analyse the sex distribution of skill levels based on the 9 ISCO major groups. The param <code>add_skill</code> in the <code>reclassify_to_isco08</code> function will get the 3-tiers variable for skill level, indicating whether the job is high, medium or low skilled. First we get the variable <em>skill_level</em> for the two datasets we are using.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">eph.2018.01</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">eph.2018.01.original</span>, 
-                                    <span class="va">PP04D_COD</span>, 
-                                    classif_origin<span class="op">=</span><span class="st">"CNO2001"</span>, 
-                                    add_skill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-                                    
-<span class="va">cps.2018</span> <span class="op">&lt;-</span>  <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span><span class="va">cps2018_occ_genre</span>, 
-                                    <span class="va">OCC</span>, 
-                                    classif_origin<span class="op">=</span><span class="st">"Census2010"</span>, 
-                                    add_skill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>Let’s analyse the sex distribution of skill levels based on the 9 ISCO major groups. Remember that we added before the param <code>add_skill</code> in the <code><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08()</a></code> function to get the 3-tiers variable for skill level, indicating whether the job is high, medium or low skilled.</p>
 <p>Now we can tabulate the data and plot it to compare</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">genre_composition.skill.arg</span><span class="op">&lt;-</span> <span class="va">eph.2018.01</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">ESTADO</span><span class="op">==</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -217,20 +209,16 @@
   <span class="fu">group_by</span><span class="op">(</span><span class="va">skill_level</span>,<span class="va">genre</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">PONDERA</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">skill_level</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>skill_level <span class="op">=</span> <span class="fu">str_wrap</span><span class="op">(</span><span class="va">skill_level</span>,width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="va">genre_composition.skill.usa</span><span class="op">&lt;-</span> <span class="va">cps.2018</span> <span class="op">%&gt;%</span> 
+<span class="va">genre_composition.skill.usa</span><span class="op">&lt;-</span> <span class="va">cps_asec_2018</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">EMPSTAT</span><span class="op">==</span><span class="fl">10</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">mutate</span><span class="op">(</span>genre<span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span><span class="va">SEX</span><span class="op">==</span><span class="fl">1</span> <span class="op">~</span> <span class="st">"Male"</span>, 
                           <span class="va">SEX</span><span class="op">==</span><span class="fl">2</span> <span class="op">~</span> <span class="st">"Female"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">skill_level</span>,<span class="va">genre</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu">n</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">summarise</span> <span class="op">(</span>absolute<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ASECWT</span>,na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">skill_level</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">mutate</span><span class="op">(</span>skill_level <span class="op">=</span> <span class="fu">str_wrap</span><span class="op">(</span><span class="va">skill_level</span>,width <span class="op">=</span> <span class="fl">25</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">mutate</span><span class="op">(</span>percentage<span class="op">=</span> <span class="va">absolute</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">absolute</span><span class="op">)</span><span class="op">)</span> 
 
 <span class="va">genre_composition.skill</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span><span class="st">"Argentina"</span> <span class="op">=</span> <span class="va">genre_composition.skill.arg</span>, <span class="st">"USA"</span><span class="op">=</span> <span class="va">genre_composition.skill.usa</span>, .id<span class="op">=</span><span class="st">"country"</span><span class="op">)</span>
 
@@ -245,8 +233,9 @@
         legend.title <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">+</span>
   <span class="fu"><a href="https://rdrr.io/pkg/ggthemes/man/scale_hc.html">scale_fill_hc</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span>
   <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="va"><a href="https://scales.r-lib.org/reference/label_percent.html">percent</a></span><span class="op">)</span></code></pre></div>
-<p><img src="Genre_analysis_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<p>In Argentina, High complexity occupations are perfomed 50-50 percent among women and men. In USA women are the majority at that level with 52%.</p>
+<p><img src="Genre_analysis_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p>In Argentina, 56% of Low skilled occupations were performed by women in 2018, whereas in USA only 30% of this type of occupations were performed by women.</p>
+<p>In Argentina, High complexity occupations were perfomed 50-50 percent among women and men. In USA, women performed 48% of high complexity occupations.</p>
 <p>The package <em>occupationcross</em> has thereby allowed us to carry out an international comparison based on different occupations classification systems. The same analysis that we have put forward for genre could be done using any of the socio-economic variables avaiable in datasets, such as age, region, incomes, etc.</p>
 </div>
 </div>

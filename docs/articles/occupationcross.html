@@ -131,7 +131,7 @@
 <code>base</code>: Dataframe containing a variable corresponding to any occupational classification detailed in <code>available_classifications</code>.<br>
 </li>
 <li>
-<code>variable</code>: variable containing occupational codes. In our case, they are named <em>OCC</em> in CPS-USA database, and <em>P3</em> in ENOE - Mexico database.<br>
+<code>variable</code>: variable containing occupational codes. In our case, they are named <em>OCC2010</em> in CPS-USA database, and <em>P3</em> in ENOE - Mexico database.<br>
 </li>
 <li>
 <code>classif_origin</code>: character indicating which classification is used in original database. Look at <code>available_classifications</code>.<br>
@@ -149,7 +149,7 @@
                                             code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
 <span class="va">usa_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">usa_cps_base</span>,
-                                             variable <span class="op">=</span> <span class="va">OCC</span>,
+                                             variable <span class="op">=</span> <span class="va">OCC2010</span>,
                                              classif_origin <span class="op">=</span> <span class="st">"Census2010"</span>,
                                              add_skill <span class="op">=</span> <span class="cn">T</span>,
                                              code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
@@ -157,20 +157,29 @@
 <div id="comparing-skill-levels-between-countries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#comparing-skill-levels-between-countries" class="anchor"></a>Comparing skill levels between countries:</h3>
-<p>Based on this reclassification to ISCO-08 we can now compare the distribution of skill levels of occupations among both countries.<br>
-- Nearly 50% of U.S. occupations are classified at the high-skill level.<br>
-- Only 22% of Mexico occupations are classified at the high-skill level</p>
+<p>Based on this reclassification to ISCO-08 we can now compare the distribution of skill levels of occupations among both countries <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<ul>
+<li>47% of U.S. occupations are classified at the high-skill level.<br>
+</li>
+<li>Only 22% of Mexico occupations are classified at the high-skill level</li>
+</ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">usa_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;       Low    Medium      High </span>
-<span class="co">#&gt; 0.1149970 0.4039943 0.4810086</span></code></pre></div>
+<span class="co">#&gt; 0.1061681 0.4262887 0.4675432</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">mexico_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;       Low    Medium      High </span>
 <span class="co">#&gt; 0.1835336 0.5991705 0.2172959</span></code></pre></div>
 </div>
+</div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Note that for simplicity we are not using here survey weights. A more accurate analysis should include them<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
   </div>
 
