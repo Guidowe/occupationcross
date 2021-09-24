@@ -39,13 +39,13 @@ Codigos_error <-  base_lfs_join %>%
 
  assertthat::assert_that(
    all(unique(base_lfs_join$ISCO3D) %in% unique(cross_isco_3dig$ISCO3D)),
-   msg = paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table: ",
+   msg = paste0("The following codes from the input variable are not in cross_table and it was not possible to do crosswalk:",
                 list(Codigos_error$ISCO3D)))
 
 set.seed(999971)
 base_lfs_join_sample <- base_lfs_join %>%
   dplyr::mutate(ISCO.88 = purrr::map(data, sample.isco))  %>%
-  dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
+  dplyr::select(-data) %>%
   dplyr::mutate(ISCO.88 = as.numeric(ISCO.88))
 
 return(base_lfs_join_sample)

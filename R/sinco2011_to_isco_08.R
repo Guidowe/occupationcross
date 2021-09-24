@@ -30,7 +30,7 @@ sinco2011_to_isco08<- function(base,
     unique()
 
   if(length(Codigos_error$cod.origin)>=1){
-    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+    warning(paste0("The following codes from the input variable are not in cross_table and it was not possible to do crosswalk:",
                    list(Codigos_error$cod.origin)))
 
     base  <- base %>%
@@ -67,7 +67,7 @@ sample.isco <- function(df) {
     dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
     dplyr::select(-data) %>%
     dplyr::mutate(ISCO.08 = as.character(ISCO.08))
-  # Elimino la columna loca que había creado para el sorteo
+
 
   if (code_titles==TRUE) {
 

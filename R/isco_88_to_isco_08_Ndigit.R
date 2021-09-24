@@ -52,7 +52,7 @@ base <- base %>%
   #                list(Codigos_error$ISCO88)))
 
   if(length(Codigos_error$ISCO88)>=1){
-    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+    warning(paste0("The following codes from the input variable are not in cross_table and it was not possible to do crosswalk:",
                    list(Codigos_error$ISCO88)))
 
     base  <- base %>%
@@ -69,7 +69,7 @@ base <- base %>%
 
 base_join_sample <- base_join %>%
     dplyr::mutate(ISCO.08 = purrr::map(data, sample.isco))  %>%
-    dplyr::select(-data) %>% # Elimino la columna loca que había creado para el sorteo
+    dplyr::select(-data) %>%
     dplyr::mutate(ISCO.08 = as.numeric(ISCO.08))
 
   return(base_join_sample)
@@ -77,7 +77,7 @@ base_join_sample <- base_join %>%
   if (summary==TRUE) {
 
     summary_cross <<- base_join_sample %>%
-      dplyr::group_by(ISCO88,ISCO.88) %>%      ### VER
+      dplyr::group_by(ISCO88,ISCO.88) %>%
       dplyr::summarise(Cases = dplyr::n())
 
   }
