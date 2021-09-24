@@ -29,7 +29,7 @@ cno2017_to_isco08<- function(base,
     unique()
 
   if(length(Codigos_error$cod.origin)>=1){
-    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+    warning(paste0("The following codes from the provided database were not found in 'crosstable_cno2017_isco08' and it was not possible to crosswalk them:  ",
                    list(Codigos_error$cod.origin)))
 
     base  <- base %>%

@@ -52,7 +52,7 @@ base <- base %>%
   #                list(Codigos_error$ISCO88)))
 
   if(length(Codigos_error$ISCO88)>=1){
-    warning(paste0("Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: ",
+    warning(paste0("The following codes from the provided database were not found in 'crosstable_isco08_isco88' and it was not possible to crosswalk them: ",
                    list(Codigos_error$ISCO88)))
 
     base  <- base %>%

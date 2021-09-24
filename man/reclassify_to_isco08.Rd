@@ -19,7 +19,9 @@ reclassify_to_isco08(
 
 \item{variable}{variable containing occupational codes}
 
-\item{classif_origin}{character vector specifying the Classification system used as input. The supported clasification systemas are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88_4digits" and "ISCO88_3digits".}
+\item{classif_origin}{character vector specifying the Classification system used as input.
+The supported clasification systems are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88", "ISCO88_3digits" and "ISCO08".
+If variable is already classified with ISCO08, setting "ISCO08" to this parameter allows you use the function to add new variables with major groups and skill levels.}
 
 \item{add_skill}{If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.}
 
