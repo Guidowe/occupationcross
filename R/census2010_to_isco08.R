@@ -26,8 +26,8 @@ Codigos_error <- base %>%
     unique()
 
 if(length(Codigos_error$Census)>=1){
-    warning(paste0("The following codes from the input variable are not in the cross_table and it was not possible to crosswalk them:",
-                   list(Codigos_error$Census)))
+  warning(paste0("The following codes from the provided database were not found in 'crosstable_census2010_soc2010_isco08' and it was not possible to crosswalk them:  ",
+                 list(Codigos_error$Census)))
 
   base  <- base %>%
     dplyr::mutate(

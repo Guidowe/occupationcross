@@ -7,7 +7,7 @@
 cno2017_to_isco08(base, cno, summary = FALSE, code_titles = FALSE)
 }
 \arguments{
-\item{base}{Dataframe from argentinian survey/census including a variable with CNO 2017 (Clasificador Nacional de Ocupaciones 2017) codes}
+\item{base}{Dataframe from Argentinian survey/census including a variable with CNO 2017 (Clasificador Nacional de Ocupaciones 2017) codes}
 
 \item{cno}{character vector containing CNO 2017 codes}
 

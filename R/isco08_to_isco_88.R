@@ -39,7 +39,7 @@ Codigos_error <-  base_lfs_join %>%
 
  assertthat::assert_that(
    all(unique(base_lfs_join$ISCO3D) %in% unique(cross_isco_3dig$ISCO3D)),
-   msg = paste0("The following codes from the input variable are not in cross_table and it was not possible to do crosswalk:",
+   msg = paste0("The following codes from the provided database were not found in 'crosstable_isco08_isco88' and it was not possible to crosswalk them:  ",
                 list(Codigos_error$ISCO3D)))
 
 set.seed(999971)

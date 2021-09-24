@@ -155,7 +155,9 @@
     </tr>
     <tr>
       <th>classif_origin</th>
-      <td><p>character vector specifying the Classification system used as input. The supported clasification systemas are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88_4digits" and "ISCO88_3digits".</p></td>
+      <td><p>character vector specifying the Classification system used as input.
+The supported clasification systems are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88", "ISCO88_3digits" and "ISCO08".
+If variable is already classified with ISCO08, setting "ISCO08" to this parameter allows you use the function to add new variables with major groups and skill levels.</p></td>
     </tr>
     <tr>
       <th>add_skill</th>
@@ -188,9 +190,9 @@
 
 
 <span class='va'>USA_database_with_isco08</span> <span class='op'>&lt;-</span> <span class='fu'>reclassify_to_isco08</span><span class='op'>(</span><span class='va'>toy_base_ipums_cps_2018</span>, <span class='va'>OCC2010</span>, classif_origin<span class='op'>=</span><span class='st'>"Census2010"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: c("1100", "730", "620", "3650", "2150", "3530", "3130", "2140", "3410", "9100", "130", "1960", "560")</span></div><div class='input'><span class='va'>MEX_database_with_isco08</span> <span class='op'>&lt;-</span> <span class='fu'>reclassify_to_isco08</span><span class='op'>(</span><span class='va'>toy_base_mexico</span>, <span class='va'>p3</span>, classif_origin<span class='op'>=</span><span class='st'>"SINCO2011"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: NA</span></div><div class='input'><span class='va'>ARG_database_with_isco08</span> <span class='op'>&lt;-</span> <span class='fu'>reclassify_to_isco08</span><span class='op'>(</span><span class='va'>toy_base_eph_argentina</span>, <span class='va'>PP04D_COD</span>, classif_origin<span class='op'>=</span><span class='st'>"CNO2001"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: Los siguientes codigos de la base provista no se encuentran en los cross_table y no fue posible realizar su crosswalk: c(NA, "92333", "43331", "45331", "71331", "99998", "30132", "81339", "30339", "30319", "99997", "42339", "99991", "30123", "99999", "54333", "31333", "11331", "46333", "61331", "20131", "11131", "33123", "82131", "57122", "43332", "44331", "90333", "41331", "54322", "43131")</span></div></pre>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The following codes from the provided database were not found in 'crosstable_census2010_soc2010_isco08' and it was not possible to crosswalk them:  c("1100", "730", "620", "3650", "2150", "3530", "3130", "2140", "3410", "9100", "130", "1960", "560")</span></div><div class='input'><span class='va'>MEX_database_with_isco08</span> <span class='op'>&lt;-</span> <span class='fu'>reclassify_to_isco08</span><span class='op'>(</span><span class='va'>toy_base_mexico</span>, <span class='va'>p3</span>, classif_origin<span class='op'>=</span><span class='st'>"SINCO2011"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The following codes from the provided database were not found in 'crosstable_sinco2011_isco08' and it was not possible to crosswalk them:  NA</span></div><div class='input'><span class='va'>ARG_database_with_isco08</span> <span class='op'>&lt;-</span> <span class='fu'>reclassify_to_isco08</span><span class='op'>(</span><span class='va'>toy_base_eph_argentina</span>, <span class='va'>PP04D_COD</span>, classif_origin<span class='op'>=</span><span class='st'>"CNO2001"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The following codes from the provided database were not found in 'crosstable_cno2001_isco08' and it was not possible to crosswalk them: c(NA, "92333", "43331", "45331", "71331", "99998", "30132", "81339", "30339", "30319", "99997", "42339", "99991", "30123", "99999", "54333", "31333", "11331", "46333", "61331", "20131", "11131", "33123", "82131", "57122", "43332", "44331", "90333", "41331", "54322", "43131")</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
