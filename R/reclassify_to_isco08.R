@@ -2,7 +2,9 @@
 #'
 #' @param base Dataframe including a variable with occupational codes contained in "available_classifications"
 #' @param variable  variable containing occupational codes
-#' @param classif_origin character vector specifying the Classification system used as input. The supported clasification systemas are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88_4digits" and "ISCO88_3digits".
+#' @param classif_origin character vector specifying the Classification system used as input.
+#' The supported clasification systems are:  "Census2010" (United States), "CNO2017" (Argentina), "SINCO2011" (Mexico), "ISCO88", "ISCO88_3digits" and "ISCO08".
+#' If variable is already classified with ISCO08, setting "ISCO08" to this parameter allows you use the function to add new variables with major groups and skill levels.
 #' @param add_skill If TRUE adds a new variable with the occupation skill level based on ISCO 08 skill levels. The new skill_level variable is a factor variable containg the levels 'Low', 'Medium' and 'High'.
 #' @param add_major_groups If TRUE adds a new variable with the major groups of each occupation based on the 1-digit ISCo-08 classification structure. The major gruops structure has 9 levels, where level 1 means the highest skill level needed to perform the job and level 9 refers ti the lowest skill level.
 #' @param code_titles If TRUE adds classification titles besides from codes.
@@ -27,7 +29,7 @@ reclassify_to_isco08 <- function(base,
                                  code_titles = F,
                                  summary = F){
 
-  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","SINCO2011", "ISCO88", "ISCO88_3digits"),
+  attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","SINCO2011", "ISCO88", "ISCO88_3digits","ISCO08"),
                        msg = paste0 ("'",classif_origin, "' is not any of the classifications available"))
 
   if (classif_origin=="SINCO2011"){
@@ -76,6 +78,11 @@ reclassify_to_isco08 <- function(base,
                                   summary = summary)
   }
 
+  if (classif_origin=="ISCO08"){
+    base  <-  base %>%
+      dplyr::mutate(ISCO.08 = as.character({{variable}}))
+
+  }
   if (add_skill==T){
 
     base <- base %>%
