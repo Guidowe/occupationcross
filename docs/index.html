@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">occupationcross</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -94,10 +94,25 @@
 </ul>
 </div>
 <div class="section level2">
+<h2 id="how-to-cite-this-package">How to cite this package<a class="anchor" aria-label="anchor" href="#how-to-cite-this-package"></a>
+</h2>
+<p>You can cite this package mentioning it as “‘occupationcross’ R package” (Weksler y Lastra, 2022)“.</p>
+<p>To include it in references:</p>
+<pre><code><span><span class="st">"Guido Weksler &amp; Facundo Lastra (2022). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025097"</span></span></code></pre>
+<p>bib entry:</p>
+<pre class="{bib}"><code>@Manual{Weksler2022,
+    title = {occupationcross: Package for making crosswalks among different occupational codes},
+    author = {Guido Weksler &amp; Facundo Lastra},
+    year = {2022},
+    doi = {10.5281/zenodo.702509},
+    url = {https://guidowe.github.io/occupationcross/},
+  }</code></pre>
+</div>
+<div class="section level2">
 <h2 id="instalation">Instalation<a class="anchor" aria-label="anchor" href="#instalation"></a>
 </h2>
 <p>Install the development version of occupationcross from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Guidowe/occupationcross"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -106,11 +121,11 @@
 </h2>
 <p>This is a basic example of how this package works :</p>
 <p>Let´s load first <em>occupationcross</em>, and also <em>tidyverse</em></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross" class="external-link">occupationcross</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p>The objects <code>available_classifications</code> and <code>available_crosswalks</code> show respectively which are the classifications collected and which crosswalks can be obtained applying the functions contained in this package.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">occupationcross</span><span class="fu">::</span><span class="va"><a href="reference/available_classifications.html">available_classifications</a></span></span>
 <span><span class="co">#&gt;   classification                                 classification_fullname</span></span>
 <span><span class="co">#&gt; 1         ISCO08 International Standard Classification of Occupations 08</span></span>
@@ -128,7 +143,7 @@
 <span><span class="co">#&gt; 5     Argentina</span></span>
 <span><span class="co">#&gt; 6 United States</span></span>
 <span><span class="co">#&gt; 7 United States</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">occupationcross</span><span class="fu">::</span><span class="va">available_crosswalks</span></span>
 <span><span class="co">#&gt; # A tibble: 8 x 3</span></span>
 <span><span class="co">#&gt;   from          to     detail                                                   </span></span>
@@ -142,7 +157,7 @@
 <span><span class="co">#&gt; 7 ISCO08        ISCO88 complete crosswalk                                       </span></span>
 <span><span class="co">#&gt; 8 Census2010    SOC20~ complete crosswalk</span></span></code></pre></div>
 <p>Let´s use a sample database from a Mexico´s household survey (Encuesta Nacional de Ocupación y Empleo) already embedded in this package. This database contains a variable named <em>“p3”</em> corresponding to SINCO 2011 (Sistema Nacional de Clasificación de Ocupaciones - 2011) occupational codes</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">toy_base_mexico</span></span>
 <span><span class="co">#&gt; # A tibble: 200 x 8</span></span>
 <span><span class="co">#&gt;      sex t_loc clase2  tue1 pos_ocu   per   fac    p3</span></span>
@@ -163,7 +178,7 @@
 - The <code>add_major_groups</code> parameter allows you to add a new variable identifying ISCO-08 major group.<br>
 - The <code>add_skill</code> parameter allows you to add a new variable identifying skill level of each occupation according to ISCO-08 classification of major groups.<br>
 - The <code>code_titles</code> parameter allows you to get the occupation names both from the origin classification and isco 08 classification</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">crossed_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">toy_base_mexico</span>,</span>
 <span>                                     variable <span class="op">=</span> <span class="va">p3</span>,</span>
 <span>                                     classif_origin <span class="op">=</span> <span class="st">"SINCO2011"</span>,</span>
