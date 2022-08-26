@@ -1,6 +1,6 @@
 Package: occupationcross
 Title: Package for making crosswalks among different Occupational codes
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: c(
     person(given = "Guido",family = "Weksler",role = c("aut", "cre"),email = "guidowe45@gmail.com",comment = c(ORCID = "0000-0002-7486-9986")),
     person(given = "Facundo",family = "Lastra",role = c("aut"),email = "facundol@hotmail.com"))

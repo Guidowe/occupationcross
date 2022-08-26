@@ -1,0 +1,17 @@
+citHeader("To cite occupationcross in publications use:")
+
+citEntry(
+
+  key = 'weksler2022',
+  entry    = "Manual",
+  title    = "occupationcross: Package for making crosswalks among different cccupational codes",
+  author   = "Guido Weksler and Facundo Lastra",
+  year     = 2022,
+  DOI  = "10.5281/zenodo.7025097",
+
+  url   = "https://guidowe.github.io/occupationcross/",
+  textVersion = paste(
+  "Guido Weksler & Facundo Lastra (2022). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025097"
+
+  )
+)

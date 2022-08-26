@@ -50,6 +50,9 @@ stringi::stri_escape_unicode() # Chequea caracteres raros en el paquete que pued
 usethis::create_github_token()
 gitcreds::gitcreds_set()
 
+#### citas ####
+usethis::use_citation()
+
 
 ####Vignettes####
 usethis::use_vignette("occupationcross") #Crea viñeta/docuemtnacion. En este caso es la viñeta ppal del paquete

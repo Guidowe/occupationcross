@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">occupationcross</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/occupationcross.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/Guidowe/occupationcross/">
+  <a href="https://github.com/Guidowe/occupationcross/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,13 +75,13 @@
 
       
 
-      </header><script src="occupationcross_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>WorkFlow Example of occupationcross</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Guidowe/occupationcross/blob/master/vignettes/occupationcross.Rmd"><code>vignettes/occupationcross.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Guidowe/occupationcross/blob/HEAD/vignettes/occupationcross.Rmd" class="external-link"><code>vignettes/occupationcross.Rmd</code></a></small>
       <div class="hidden name"><code>occupationcross.Rmd</code></div>
 
     </div>
@@ -93,37 +89,36 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross">occupationcross</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross" class="external-link">occupationcross</a></span><span class="op">)</span></span></code></pre></div>
 <p><code>occupationcross</code> package provides some functions to apply crosswalks between different occupational clasiffications around the world.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>To install development version:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages('devtools') if devtools is not installed</span>
-
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"Guidowe/occupationcross"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages('devtools') if devtools is not installed</span></span>
+<span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"Guidowe/occupationcross"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="workflow-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#workflow-example" class="anchor"></a>WorkFlow Example:</h2>
+<div class="section level2">
+<h2 id="workflow-example">WorkFlow Example:<a class="anchor" aria-label="anchor" href="#workflow-example"></a>
+</h2>
 <p>Let’s read two databases from household surveys that identify occupations based on national classifiers. In our example we will use IPUMS database from Current Population Survey (CPS) from United States Mexico´s Encuesta Nacional de Ocupación y Empleo database (ENOE).</p>
-<div id="load-the-package" class="section level3">
-<h3 class="hasAnchor">
-<a href="#load-the-package" class="anchor"></a>Load the package:</h3>
+<div class="section level3">
+<h3 id="load-the-package">Load the package:<a class="anchor" aria-label="anchor" href="#load-the-package"></a>
+</h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross">occupationcross</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Guidowe/occupationcross" class="external-link">occupationcross</a></span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="read-dataframes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#read-dataframes" class="anchor"></a>Read dataframes</h3>
+<div class="section level3">
+<h3 id="read-dataframes">Read dataframes<a class="anchor" aria-label="anchor" href="#read-dataframes"></a>
+</h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">usa_cps_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/Base_USA2018.RDS"</span><span class="op">)</span>
-<span class="va">mexico_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/mexico_T31019.RDS"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">usa_cps_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/Base_USA2018.RDS"</span><span class="op">)</span></span>
+<span><span class="va">mexico_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="st">"../data-raw/bases/mexico_T31019.RDS"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="apply-crosswalk-to-isco-08-codes-reclassify_to_isco08" class="section level3">
-<h3 class="hasAnchor">
-<a href="#apply-crosswalk-to-isco-08-codes-reclassify_to_isco08" class="anchor"></a>Apply crosswalk to ISCO 08 codes: <code>reclassify_to_isco08()</code>
+<div class="section level3">
+<h3 id="apply-crosswalk-to-isco-08-codes-reclassify_to_isco08">Apply crosswalk to ISCO 08 codes: <code>reclassify_to_isco08()</code><a class="anchor" aria-label="anchor" href="#apply-crosswalk-to-isco-08-codes-reclassify_to_isco08"></a>
 </h3>
 <p>Our function requieres three basic arguments :</p>
 <ul>
@@ -142,21 +137,21 @@
 <code>code_titles</code>: logical indicating if you want occupational titles besides codes.</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mexico_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">mexico_base</span>,
-                                            variable <span class="op">=</span> <span class="va">P3</span>,
-                                            classif_origin <span class="op">=</span> <span class="st">"SINCO2011"</span>,
-                                            add_skill <span class="op">=</span> <span class="cn">T</span>,
-                                            code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-
-<span class="va">usa_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">usa_cps_base</span>,
-                                             variable <span class="op">=</span> <span class="va">OCC2010</span>,
-                                             classif_origin <span class="op">=</span> <span class="st">"Census2010"</span>,
-                                             add_skill <span class="op">=</span> <span class="cn">T</span>,
-                                             code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">mexico_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">mexico_base</span>,</span>
+<span>                                            variable <span class="op">=</span> <span class="va">P3</span>,</span>
+<span>                                            classif_origin <span class="op">=</span> <span class="st">"SINCO2011"</span>,</span>
+<span>                                            add_skill <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                                            code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">usa_base_crossed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reclassify_to_isco08.html">reclassify_to_isco08</a></span><span class="op">(</span>base <span class="op">=</span> <span class="va">usa_cps_base</span>,</span>
+<span>                                             variable <span class="op">=</span> <span class="va">OCC2010</span>,</span>
+<span>                                             classif_origin <span class="op">=</span> <span class="st">"Census2010"</span>,</span>
+<span>                                             add_skill <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                                             code_titles <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="comparing-skill-levels-between-countries" class="section level3">
-<h3 class="hasAnchor">
-<a href="#comparing-skill-levels-between-countries" class="anchor"></a>Comparing skill levels between countries:</h3>
+<div class="section level3">
+<h3 id="comparing-skill-levels-between-countries">Comparing skill levels between countries:<a class="anchor" aria-label="anchor" href="#comparing-skill-levels-between-countries"></a>
+</h3>
 <p>Based on this reclassification to ISCO-08 we can now compare the distribution of skill levels of occupations among both countries <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
 <ul>
 <li>47% of U.S. occupations are classified at the high-skill level.<br>
@@ -164,15 +159,15 @@
 <li>Only 22% of Mexico occupations are classified at the high-skill level</li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">usa_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;       Low    Medium      High </span>
-<span class="co">#&gt; 0.1061681 0.4262887 0.4675432</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">usa_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;       Low    Medium      High </span></span>
+<span><span class="co">#&gt; 0.1061681 0.4262887 0.4675432</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">mexico_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;       Low    Medium      High </span>
-<span class="co">#&gt; 0.1835336 0.5991705 0.2172959</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/proportions.html" class="external-link">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">mexico_base_crossed</span><span class="op">$</span><span class="va">skill_level</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;       Low    Medium      High </span></span>
+<span><span class="co">#&gt; 0.1835336 0.5991705 0.2172959</span></span></code></pre></div>
 </div>
 </div>
 <div class="footnotes">
@@ -194,11 +189,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Guido Weksler, Facundo Lastra.</p>
+  <p></p>
+<p>Developed by Guido Weksler, Facundo Lastra.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -206,6 +203,8 @@
 
   
 
+
+  
 
   </body>
 </html>

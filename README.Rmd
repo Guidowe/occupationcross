@@ -31,6 +31,28 @@ In addition, the package also has dataframes specifying the available classifica
 - **`crosstable_sinco2011_isco08`**
 - **`crosstable_cno2001_isco08`**
 
+## How to cite this package
+
+You can cite this package mentioning it as "'occupationcross' R package" (Weksler y Lastra, 2022)".   
+   
+To include it in references:   
+   
+```
+"Guido Weksler & Facundo Lastra (2022). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025097"
+```
+
+bib entry: 
+
+```{bib}
+@Manual{Weksler2022,
+    title = {occupationcross: Package for making crosswalks among different occupational codes},
+    author = {Guido Weksler & Facundo Lastra},
+    year = {2022},
+    doi = {10.5281/zenodo.702509},
+    url = {https://guidowe.github.io/occupationcross/},
+  }
+```
+
 ## Instalation   
 Install the development version of occupationcross from [GitHub](https://github.com/) with:
 
