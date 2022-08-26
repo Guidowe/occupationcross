@@ -35,7 +35,7 @@ use_test("isco_08_to_isco_88_4digit")
 usethis::use_github() # Cosas de autenticacion de github
 browse_github_token()
 
-use_readme_rmd() # Crea el readme del paquete
+use_readme_rmd() # Crea el readme del paquete (CUIDADO! LO PISA!)
 devtools::build() # Construye la estructura del paquete
 
 ##On Windows the collection of tools needed for building packages from source is called Rtools. Rtools is NOT an R package. It is NOT installed with install.packages(). Instead, download it from https://cran.r-project.org/bin/windows/Rtools/ and run the installer.
