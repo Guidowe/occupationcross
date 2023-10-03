@@ -58,8 +58,12 @@ usethis::use_citation()
 usethis::use_vignette("occupationcross") #Crea viñeta/docuemtnacion. En este caso es la viñeta ppal del paquete
 usethis::use_vignette("Major_Groups_Genero") # Crea otra viñeta, que puede constitur un articulo en la pagina web
 
+###documentaciones####
+devtools::document()
 ###Página del paquete####
+
 pkgdown::build_site() # Arma las carpetas necesarias para armar un sitio web del paquete (o lo actualiza por completo si ya existe). Le da a la pagina formato tipico de un indice (Casita), y las secciones siguientes siguientes.
+pkgdown::build_site(devel = T)# PARA QUE SEA MAS RAPIDO y NO HAGA TODO DE 0
 pkgdown::build_articles_index() #Arma (o actualiza) indice de articulos
 pkgdown::build_articles() # Arma (o actualiza) articulos
 

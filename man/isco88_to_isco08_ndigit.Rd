@@ -13,16 +13,16 @@ isco88_to_isco08_ndigit(
 )
 }
 \arguments{
-\item{base}{Dataframe from any survey including a variable with ISCO 08 codes}
+\item{base}{Dataframe from any survey including a variable with ISCO 88 codes}
 
-\item{isco}{character vector containing ISCO 08 codes}
+\item{isco}{character vector containing ISCO 88 codes}
 
 \item{digits}{Digits number (ranging from 1 to 4) for ISCO codes in input data}
 
-\item{summary}{If TRUE provides other dataframe counting how many cases where asigned for each ISCO08 code to each ISCO88 code.}
+\item{summary}{If TRUE provides other dataframe counting how many cases where asigned for each ISCO88 code to each ISCO08 code.}
 }
 \value{
-The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 88 codes
+The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 08 codes
 }
 \description{
 Cross ISCO 88 to ISCO 08 - n digit
