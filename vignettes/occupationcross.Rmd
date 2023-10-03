@@ -1,8 +1,8 @@
 ---
-title: "WorkFlow Example of occupationcross"
+title: "occupationcross"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{WorkFlow Example of occupationcross}
+  %\VignetteIndexEntry{occupationcross}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,71 +17,3 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(occupationcross)
 ```
-
-`occupationcross` package provides some functions to apply crosswalks between different occupational clasiffications around the world.
-
-## Installation
-
-
-To install development version:
-
-```{r, eval=FALSE, message=FALSE, warning=FALSE, include=TRUE}
-# install.packages('devtools') if devtools is not installed
-
-devtools::install_github("Guidowe/occupationcross")
-```
-
-
-## WorkFlow Example: 
-Let's read two databases from household surveys that identify occupations based on national classifiers. In our example we will use IPUMS database from Current Population Survey (CPS) from United States Mexico´s Encuesta Nacional de Ocupación y Empleo database (ENOE).
-
-### Load the package: 
-
-```{r message=FALSE, warning=FALSE}
-library(occupationcross)
-```
-
-### Read dataframes 
-
-```{r}
-usa_cps_base <- readRDS("../data-raw/bases/Base_USA2018.RDS")
-mexico_base <- readRDS("../data-raw/bases/mexico_T31019.RDS")
-```
-
-### Apply crosswalk to ISCO 08 codes: `reclassify_to_isco08()`
-Our function requieres three basic arguments :
-
-- `base`: Dataframe containing a variable corresponding to any occupational classification detailed in `available_classifications`.  
-- `variable`: variable containing occupational codes. In our case, they are named *OCC2010* in CPS-USA database, and *P3* in ENOE - Mexico database.  
-- `classif_origin`: character indicating which classification is used in original database. Look at `available_classifications`.   
-- `add_skill`: logical indicating if you want other variable identifying skill level ("Low","Medium" or "High") according to ISCO-08 codes.
-- `code_titles`: logical indicating if you want occupational titles besides codes.
-```{r message=FALSE, warning=FALSE}
-mexico_base_crossed <- reclassify_to_isco08(base = mexico_base,
-                                            variable = P3,
-                                            classif_origin = "SINCO2011",
-                                            add_skill = T,
-                                            code_titles = T)
-
-usa_base_crossed <- reclassify_to_isco08(base = usa_cps_base,
-                                             variable = OCC2010,
-                                             classif_origin = "Census2010",
-                                             add_skill = T,
-                                             code_titles = T)
-
-```
-
-### Comparing skill levels between countries:
-Based on this reclassification to ISCO-08 we can now  compare the distribution of skill levels of occupations among both countries ^[Note that for simplicity we are not using here survey weights. A more accurate analysis should include them].
-
- - 47% of U.S. occupations are classified at the high-skill level.   
- - Only 22% of Mexico occupations are classified at the high-skill level   
-
-```{r}
-prop.table(table(usa_base_crossed$skill_level))
-```
-
-```{r}
-prop.table(table(mexico_base_crossed$skill_level))
-```
-
