@@ -1,0 +1,29 @@
+#' Random sample of cases from Colombia 2019 GEIH (CNO-SENA 1970 / ISCO-68).
+#'
+#' A dataset containing random cases from the Colombian \emph{Gran Encuesta
+#' Integrada de Hogares} (GEIH) 2019, restricted to the employed population,
+#' with a selection of 12 variables. The occupation variable \code{OFICIO} is
+#' coded with the \emph{Clasificacion Nacional de Ocupaciones} (CNO) of the SENA
+#' (1970); at the subgroup (2-digit) level it matches the CIUO-68 / ISCO-68
+#' minor groups, and can be reclassified to ISCO-08 with
+#' \code{\link{reclassify_to_isco08}} using \code{classif_origin = "CNO70"}.
+#'
+#' @format A data frame with 2000 rows and 12 variables:
+#' \describe{
+#'   \item{OFICIO}{Occupation code, CNO-SENA 1970 (CIUO-68 / ISCO-68 2-digit minor group)}
+#'   \item{RAMA2D}{Branch of economic activity (CIIU, 2-digit)}
+#'   \item{P6020}{Sex (1 = male, 2 = female)}
+#'   \item{P6040}{Age in completed years}
+#'   \item{P6210}{Highest level of education attained}
+#'   \item{P6800}{Hours usually worked per week}
+#'   \item{INGLABO}{Monthly labour income}
+#'   \item{OCI}{Employed indicator (equals 1 for every record)}
+#'   \item{AREA}{Metropolitan area code}
+#'   \item{DPTO}{Department code}
+#'   \item{MES}{Survey month}
+#'   \item{fex_c_2011}{Survey expansion factor (weight)}
+#' }
+#' @source Departamento Administrativo Nacional de Estadistica (DANE), Gran
+#'   Encuesta Integrada de Hogares (GEIH) 2019.
+#'   \url{https://microdatos.dane.gov.co/}
+"toy_base_colombia_cno70"
