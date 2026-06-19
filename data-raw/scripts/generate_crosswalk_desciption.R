@@ -6,6 +6,7 @@ available_crosswalks <- tribble(
   "Census2010" ,  "ISCO08"  ,"complete crosswalk",
   "CNO2001"    ,  "ISCO08"  ,"crosswalk only available to isco digits 1 and 2",
   "CNO2017"    ,  "ISCO08"  ,"crosswalk only available to isco digits 1 and 2",
+  "CNO70"      ,  "ISCO08"  ,"crosswalk via DANE CIUO-88 A.C.; OFICIO is 2-digit",
   "ISCO88"     ,  "ISCO08"  ,"complete crosswalk",
   "ISCO88_3digits",  "ISCO08"  ,"crosswalk designed for databases with ISCO88 containing only 3 digits",
   "ISCO08"     ,  "ISCO88"  ,"complete crosswalk",
@@ -22,6 +23,7 @@ available_classifications <- data.frame(
     "SINCO2011",
     "CNO2001",
     "CNO2017",
+    "CNO70",
     "Census2010",
     "SOC2010"
     ),
@@ -31,6 +33,7 @@ available_classifications <- data.frame(
     "Sistema Nacional de Clasificación de Ocupaciones 2011",
     "Clasificador Nacional de Ocupaciones 2001",
     "Clasificador Nacional de Ocupaciones 2017",
+    "Clasificación Nacional de Ocupaciones (SENA) 1970",
     "2010 Census Occupational Classification",
     "2010 Standard Occupational Classification"
     ),
@@ -40,6 +43,7 @@ available_classifications <- data.frame(
     "Mexico",
     "Argentina",
     "Argentina",
+    "Colombia",
     "United States",
     "United States"
     )
