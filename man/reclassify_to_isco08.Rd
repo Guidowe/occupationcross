@@ -11,7 +11,8 @@ reclassify_to_isco08(
   add_skill = F,
   add_major_groups = F,
   code_titles = F,
-  summary = F
+  summary = F,
+  allocation = c("uniform", "weighted")
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ If variable is already classified with ISCO08, setting "ISCO08" to this paramete
 \item{code_titles}{If TRUE adds classification titles besides from codes.}
 
 \item{summary}{If TRUE provides other dataframe counting how many cases where asigned for each Census 08 code to each ISCO88 code.}
+
+\item{allocation}{How the ambiguity of origin codes that map to several ISCO-08 codes is resolved: `"uniform"` (default) draws one candidate at random; `"weighted"` draws proportional to a reference ISCO-08 distribution. `"weighted"` is only available for `classif_origin = "CNO70"` (Colombia), where it uses the built-in \code{\link{colombia_geih_2022_weights}}; for any other classifier it falls back to `"uniform"` with a warning.}
 }
 \value{
 The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 08 codes

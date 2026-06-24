@@ -9,6 +9,7 @@
 #' @param add_major_groups If TRUE adds a new variable with the major groups of each occupation based on the 1-digit ISCo-08 classification structure. The major gruops structure has 9 levels, where level 1 means the highest skill level needed to perform the job and level 9 refers ti the lowest skill level.
 #' @param code_titles If TRUE adds classification titles besides from codes.
 #' @param summary If TRUE provides other dataframe counting how many cases where asigned for each Census 08 code to each ISCO88 code.
+#' @param allocation How the ambiguity of origin codes that map to several ISCO-08 codes is resolved: `"uniform"` (default) draws one candidate at random; `"weighted"` draws proportional to a reference ISCO-08 distribution. `"weighted"` is only available for `classif_origin = "CNO70"` (Colombia), where it uses the built-in \code{\link{colombia_geih_2022_weights}}; for any other classifier it falls back to `"uniform"` with a warning.
 #' @details disclaimer: This script uses crosswalks provided by different statistical offices arround the world.
 #'  It is not an official product of any of them
 #' @return The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 08 codes
@@ -20,6 +21,9 @@
 #' USA_database_with_isco08 <- reclassify_to_isco08(toy_base_ipums_cps_2018, OCC2010, classif_origin="Census2010")
 #' MEX_database_with_isco08 <- reclassify_to_isco08(toy_base_mexico, p3, classif_origin="SINCO2011")
 #' ARG_database_with_isco08 <- reclassify_to_isco08(toy_base_eph_argentina, PP04D_COD, classif_origin="CNO2001")
+#' COL_database_with_isco08 <- reclassify_to_isco08(toy_base_colombia_cno70, OFICIO, classif_origin="CNO70")
+#' COL_database_with_isco08_weighted <- reclassify_to_isco08(toy_base_colombia_cno70, OFICIO, classif_origin="CNO70", allocation = "weighted")
+
 
 reclassify_to_isco08 <- function(base,
                                  variable,
@@ -27,10 +31,18 @@ reclassify_to_isco08 <- function(base,
                                  add_skill = F,
                                  add_major_groups = F,
                                  code_titles = F,
-                                 summary = F){
+                                 summary = F,
+                                 allocation = c("uniform","weighted")){
 
   attempt::stop_if_not(.x = classif_origin %in% c("Census2010","CNO2001","CNO2017","CNO70","SINCO2011", "ISCO88", "ISCO88_3digits","ISCO08"),
                        msg = paste0 ("'",classif_origin, "' is not any of the classifications available"))
+
+  allocation <- match.arg(allocation)
+
+  if (allocation == "weighted" && classif_origin != "CNO70") {
+    warning("no weighting option for the selected crosswalk, processing with uniform allocation")
+    allocation <- "uniform"
+  }
 
   if (classif_origin=="SINCO2011"){
     base  <- sinco2011_to_isco08(base = base,
@@ -66,7 +78,8 @@ reclassify_to_isco08 <- function(base,
     base  <- cno70_to_isco08(base = base,
                              oficio = {{variable}},
                              code_titles = code_titles,
-                             summary = summary)
+                             summary = summary,
+                             allocation = allocation)
   }
 
   if (classif_origin=="ISCO88"){

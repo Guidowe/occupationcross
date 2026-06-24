@@ -4,7 +4,13 @@
 \alias{cno70_to_isco08}
 \title{Cross CNO-SENA 1970 (Colombia) to ISCO 08}
 \usage{
-cno70_to_isco08(base, oficio, summary = FALSE, code_titles = FALSE)
+cno70_to_isco08(
+  base,
+  oficio,
+  summary = FALSE,
+  code_titles = FALSE,
+  allocation = c("uniform", "weighted")
+)
 }
 \arguments{
 \item{base}{Dataframe from a colombian survey (e.g. GEIH) including a variable with CNO-SENA 1970 codes, at the 2-digit subgroup level published in the variable OFICIO}
@@ -14,6 +20,13 @@ cno70_to_isco08(base, oficio, summary = FALSE, code_titles = FALSE)
 \item{summary}{If TRUE provides other dataframe counting how many cases where asigned for each origin code to each ISCO 08 code.}
 
 \item{code_titles}{If TRUE adds classification titles besides from codes.}
+
+\item{allocation}{How to resolve the ambiguity of 2-digit CNO-70 codes that map
+to several ISCO-08 codes: `"uniform"` (default) draws one candidate at random;
+`"weighted"` draws proportional to the built-in 2022 GEIH ISCO-08 distribution
+(\code{\link{colombia_geih_2022_weights}}), restricted to each origin code's
+candidate set, with a uniform fallback when none of the candidates appears in
+the reference.}
 }
 \value{
 The function returns the provided dataframe, adding a new variable with the crosswalk to ISCO 08 codes
@@ -24,4 +37,7 @@ Cross CNO-SENA 1970 (Colombia) to ISCO 08
 \examples{
 
 base_crossed <- cno70_to_isco08(toy_base_colombia_cno70, oficio = OFICIO)
+
+# weighted draw using the built-in 2022 GEIH reference distribution
+base_weighted <- cno70_to_isco08(toy_base_colombia_cno70, oficio = OFICIO, allocation = "weighted")
 }
