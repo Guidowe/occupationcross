@@ -1,0 +1,19 @@
+#' Crosswalk between CNO-SENA 1970 (Colombia) and ISCO 88 classification.
+#'
+#' A dataset containing the crosswalk from the \emph{Clasificacion Nacional de
+#' Ocupaciones} (CNO) of the SENA (1970) to ISCO-88, parsed from the official
+#' correspondence table published by DANE in the CIUO-88 A.C. (2005). Origin
+#' codes are at the subgroup (2-digit) level published in the GEIH variable
+#' \code{OFICIO}, so most of them map to several ISCO-88 codes;
+#' \code{\link{cno70_to_isco08}} breaks that ambiguity when applying the
+#' crosswalk.
+#'
+#' @format A data frame with 572 rows and 2 variables:
+#' \describe{
+#'   \item{cno70.code}{CNO-SENA 1970 subgroup (2-digit) code, as published in OFICIO}
+#'   \item{isco88.code}{ISCO-88 4-digit unit-group code}
+#' }
+#' @source Departamento Administrativo Nacional de Estadistica (DANE),
+#'   correspondence table CIUO88OIT - CNO70 published in the CIUO-88 A.C. (2005).
+#'   \url{https://microdatos.dane.gov.co/}
+"crosstable_cno70_isco88"

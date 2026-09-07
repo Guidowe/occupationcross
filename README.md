@@ -3,8 +3,9 @@
 
 # occupationcross
 
-<!-- badges: start --> 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7025097.svg)](https://doi.org/10.5281/zenodo.7025097)
+<!-- badges: start -->
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7025096.svg)](https://doi.org/10.5281/zenodo.7025096)
 <!-- badges: end -->
 
 ## Description
@@ -32,22 +33,21 @@ crosswalks.
 
 ## How to cite this package
 
-You can cite this package mentioning it as "'occupationcross' R package" (Weksler y Lastra, 2022)".   
-   
-To include it in references:   
-   
-```
-"Guido Weksler & Facundo Lastra (2022). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025097"
-```
+You can cite this package mentioning it as “‘occupationcross’ R package”
+(Weksler, Lastra y Gutman, 2026)“.
 
-bib entry: 
+To include it in references:
 
-```{bib}
-@Manual{Weksler2022,
+    "Guido Weksler, Facundo Lastra & Juan Camilo Gutman (2026). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025096"
+
+bib entry:
+
+``` bib
+@Manual{Weksler2026,
     title = {occupationcross: Package for making crosswalks among different occupational codes},
-    author = {Guido Weksler & Facundo Lastra},
-    year = {2022},
-    doi = {10.5281/zenodo.702509},
+    author = {Guido Weksler and Facundo Lastra and Juan Camilo Gutman},
+    year = {2026},
+    doi = {10.5281/zenodo.7025096},
     url = {https://guidowe.github.io/occupationcross/},
   }
 ```
@@ -86,31 +86,34 @@ occupationcross::available_classifications
 #> 3      SINCO2011   Sistema Nacional de Clasificación de Ocupaciones 2011
 #> 4        CNO2001               Clasificador Nacional de Ocupaciones 2001
 #> 5        CNO2017               Clasificador Nacional de Ocupaciones 2017
-#> 6     Census2010                 2010 Census Occupational Classification
-#> 7        SOC2010               2010 Standard Occupational Classification
+#> 6          CNO70       Clasificación Nacional de Ocupaciones (SENA) 1970
+#> 7     Census2010                 2010 Census Occupational Classification
+#> 8        SOC2010               2010 Standard Occupational Classification
 #>         country
 #> 1 International
 #> 2 International
 #> 3        Mexico
 #> 4     Argentina
 #> 5     Argentina
-#> 6 United States
+#> 6      Colombia
 #> 7 United States
+#> 8 United States
 ```
 
 ``` r
 occupationcross::available_crosswalks
-#> # A tibble: 8 x 3
-#>   from          to     detail                                                   
-#>   <chr>         <chr>  <chr>                                                    
-#> 1 SINCO2011     ISCO08 complete crosswalk                                       
-#> 2 Census2010    ISCO08 complete crosswalk                                       
-#> 3 CNO2001       ISCO08 crosswalk only available to isco digits 1 and 2          
-#> 4 CNO2017       ISCO08 crosswalk only available to isco digits 1 and 2          
-#> 5 ISCO88        ISCO08 complete crosswalk                                       
-#> 6 ISCO88_3digi~ ISCO08 crosswalk designed for databases with ISCO88 containing ~
-#> 7 ISCO08        ISCO88 complete crosswalk                                       
-#> 8 Census2010    SOC20~ complete crosswalk
+#> # A tibble: 9 × 3
+#>   from           to      detail                                                 
+#>   <chr>          <chr>   <chr>                                                  
+#> 1 SINCO2011      ISCO08  complete crosswalk                                     
+#> 2 Census2010     ISCO08  complete crosswalk                                     
+#> 3 CNO2001        ISCO08  crosswalk only available to isco digits 1 and 2        
+#> 4 CNO2017        ISCO08  crosswalk only available to isco digits 1 and 2        
+#> 5 CNO70          ISCO08  crosswalk via DANE CIUO-88 A.C.; OFICIO is 2-digit     
+#> 6 ISCO88         ISCO08  complete crosswalk                                     
+#> 7 ISCO88_3digits ISCO08  crosswalk designed for databases with ISCO88 containin…
+#> 8 ISCO08         ISCO88  complete crosswalk                                     
+#> 9 Census2010     SOC2010 complete crosswalk
 ```
 
 Let´s use a sample database from a Mexico´s household survey (Encuesta
@@ -121,7 +124,7 @@ codes
 
 ``` r
 toy_base_mexico
-#> # A tibble: 200 x 8
+#> # A tibble: 200 × 8
 #>      sex t_loc clase2  tue1 pos_ocu   per   fac    p3
 #>    <dbl> <dbl>  <dbl> <dbl>   <dbl> <dbl> <dbl> <dbl>
 #>  1     1     1      1     4       2   119   435  7121
@@ -134,7 +137,7 @@ toy_base_mexico
 #>  8     2     1      4     0       0   119   104    NA
 #>  9     1     4      1     1       3   119   450  6111
 #> 10     2     4      1     3       3   119   293  4111
-#> # ... with 190 more rows
+#> # ℹ 190 more rows
 ```
 
 Applying the `reclassify_to_isco08()` function we can obtain a
@@ -161,7 +164,7 @@ crossed_base <- reclassify_to_isco08(base = toy_base_mexico,
 
 crossed_base %>% 
   select(p3,ISCO.08,major_group)
-#> # A tibble: 200 x 3
+#> # A tibble: 200 × 3
 #>       p3 ISCO.08 major_group                                          
 #>    <dbl> <chr>   <fct>                                                
 #>  1  7121 7112    7. Craft and Related Trades Workers                  
@@ -174,5 +177,5 @@ crossed_base %>%
 #>  8    NA 0000    <NA>                                                 
 #>  9  6111 6111    6. Skilled Agricultural, Forestry and Fishery Workers
 #> 10  4111 5221    5. Services and Sales Workers                        
-#> # ... with 190 more rows
+#> # ℹ 190 more rows
 ```

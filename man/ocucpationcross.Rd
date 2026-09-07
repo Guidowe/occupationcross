@@ -2,6 +2,8 @@
 % Please edit documentation in R/occupationcross.R
 \docType{package}
 \name{ocucpationcross}
+\alias{occupationcross}
+\alias{occupationcross-package}
 \alias{ocucpationcross}
 \title{\code{ocucpationcross} package}
 \description{
@@ -11,4 +13,22 @@ International Standard Classification of Occupations (ISCO) and Standard Occupat
 \details{
 See the README on
 \href{https://github.com/Guidowe/occupationcross}{Github}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/Guidowe/occupationcross}
+  \item Report bugs at \url{https://github.com/Guidowe/occupationcross/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Guido Weksler \email{guidowe45@gmail.com} (\href{https://orcid.org/0000-0002-7486-9986}{ORCID})
+
+Authors:
+\itemize{
+  \item Facundo Lastra \email{facundol@hotmail.com}
+  \item Juan Camilo Gutman \email{gutmanjuancamilo@gmail.com} (\href{https://orcid.org/0009-0009-4870-5628}{ORCID})
+}
+
 }

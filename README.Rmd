@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 # occupationcross
 
 <!-- badges: start -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7025096.svg)](https://doi.org/10.5281/zenodo.7025096)
 <!-- badges: end -->
 
 
@@ -33,22 +34,22 @@ In addition, the package also has dataframes specifying the available classifica
 
 ## How to cite this package
 
-You can cite this package mentioning it as "'occupationcross' R package" (Weksler y Lastra, 2022)".   
+You can cite this package mentioning it as "'occupationcross' R package" (Weksler, Lastra y Gutman, 2026)".   
    
 To include it in references:   
    
 ```
-"Guido Weksler & Facundo Lastra (2022). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025097"
+"Guido Weksler, Facundo Lastra & Juan Camilo Gutman (2026). occupationcross: Package for making crosswalks among different occupational codes. R package version https://doi.org/10.5281/zenodo.7025096"
 ```
 
 bib entry: 
 
 ```{bib}
-@Manual{Weksler2022,
+@Manual{Weksler2026,
     title = {occupationcross: Package for making crosswalks among different occupational codes},
-    author = {Guido Weksler & Facundo Lastra},
-    year = {2022},
-    doi = {10.5281/zenodo.702509},
+    author = {Guido Weksler and Facundo Lastra and Juan Camilo Gutman},
+    year = {2026},
+    doi = {10.5281/zenodo.7025096},
     url = {https://guidowe.github.io/occupationcross/},
   }
 ```

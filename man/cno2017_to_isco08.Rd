@@ -21,6 +21,3 @@ The function returns the provided dataframe, adding a new variable with the cros
 \description{
 Cross CNO 2017 (Arg) to ISCO 08
 }
-\examples{
-
-}
