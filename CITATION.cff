@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "occupationcross: Package for making crosswalks among different occupational codes"
+version: 1.1.0
+date-released: 2026-08-15
+license: MIT
+authors:
+  - family-names: Weksler
+    given-names: Guido
+    orcid: https://orcid.org/0000-0002-7486-9986
+  - family-names: Lastra
+    given-names: Facundo
+  - family-names: Gutman Gómez
+    given-names: Juan Camilo
+    orcid: https://orcid.org/0009-0009-4870-5628
